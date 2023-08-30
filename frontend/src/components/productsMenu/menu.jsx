@@ -31,27 +31,22 @@ const MenuOptions = () => {
     return response.data;
   };
 
-  const { data: dataEntradas } = useSWR(
+  const { data: dataEntradas, isLoading: isLoadingDataEntradas } = useSWR(
     "http://localhost:5000/products/getAppetizers",
     fetcher
   );
-  const { data: dataBebidas } = useSWR(
+  const { data: dataBebidas, isLoading: isLoadingDataBebidas } = useSWR(
     "http://localhost:5000/products/getBeverages",
     fetcher
   );
-  const { data: dataMainDishes } = useSWR(
+  const { data: dataMainDishes, isLoading: isLoadingDataMainDishes } = useSWR(
     "http://localhost:5000/products/getMainDishes",
     fetcher
   );
-  const { data: dataDesserts } = useSWR(
+  const { data: dataDesserts, isLoading: isLoadingDataDesserts } = useSWR(
     "http://localhost:5000/products/getDesserts",
     fetcher
-  );
-
-  if (!dataEntradas || !dataBebidas || !dataMainDishes || !dataDesserts) {
-    return <h2 className="text-white text-6xl">Cargando...</h2>;
-  }
-
+  )
   //carrito de compras
 
   const handleAddToCart = (item) => {
@@ -114,10 +109,15 @@ const MenuOptions = () => {
     fetchTables();
   }, []);
 
+  if (isLoadingDataEntradas || isLoadingDataBebidas || isLoadingDataMainDishes || isLoadingDataDesserts) {
+    return <h2 className="text-white text-6xl">Cargando...</h2>;
+  }
+
+
   const handleSendOrder = async () => {
     try {
       if (!selectedTable) {
-        return alertaErrorMesaVacia();        
+        return alertaErrorMesaVacia();
       }
 
       if (cart.length === 0) {
