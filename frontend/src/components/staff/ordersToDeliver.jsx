@@ -10,31 +10,29 @@ export const OrdersToDeliver = () => {
       "http://localhost:5000/staff/getPendingOrders"
     );
     console.log(response.data);
+    console.log(response.data);
     return response.data;
   };
 
-  const { data } = useSWR("ordenesPendientes", fetcher, {
-    refreshInterval: 100,
+  const { data, isLoading } = useSWR("ordenesPendientes", fetcher, {
+    refreshInterval: 1000,
   });
 
-  if (!data) {
-    return <h2 className="text-white text-6xl">Cargando...</h2>;
-  }
-
   const ordenEntregada = async (idOrden) => {
-    console.log("su");
-
     try {
       const response = await axios.delete(
         `http://localhost:5000/staff/orderDelivered/${idOrden}`
       );
       if (response) {
-        return alert("Orden marcada como entregada exitosamente");
+        return console.log("Orden marcada como entregada exitosamente");
       }
     } catch (error) {
       console.error(error);
     }
   };
+
+  if (isLoading) return <h2 className="text-white text-6xl">Cargando...</h2>;
+
 
   return (
     <>
@@ -48,12 +46,12 @@ export const OrdersToDeliver = () => {
       </div>
 
       <div className="md:w-4/3 px-16 flex flex-col justify-start items-start">
-                <h1 className="border-[#58764E] border-b-4 py-2 w-[30%] max-sm:w-[50%] max-sm:text-2xl text-3xl my-8 font-bold text-[#F47228]" >Pedidos a entregar</h1>
+        <h1 className="border-[#58764E] border-b-4 py-2 w-[30%] max-sm:w-[50%] max-sm:text-2xl text-3xl my-8 font-bold text-[#F47228]" >Pedidos a entregar</h1>
 
-                <p className="text-[#fff] font-bold  my-8 max-sm:text-justify  max-sm:text-2xl text-5xl">
-                    Controle y Administre el estado en que se encuentran los pedidos.
-                </p>
-            </div>
+        <p className="text-[#fff] font-bold  my-8 max-sm:text-justify  max-sm:text-2xl text-5xl">
+          Controle y Administre el estado en que se encuentran los pedidos.
+        </p>
+      </div>
 
       <div className="overflow-x mx-auto w-full">
         <div className="overflow-x mx-auto w-3/4">

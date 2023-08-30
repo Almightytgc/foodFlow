@@ -26,6 +26,10 @@ import { sendOrder } from '../controllers/staff/sendOrder.mjs';
 import { getTables } from '../controllers/staff/getTables.mjs';
 import { changeTableState } from '../controllers/staff/changeTableState.mjs';
 
+//chef
+import { getPendingOrders } from '../controllers/staff/getPendingOrders.mjs';
+import { orderDelivered } from '../controllers/staff/markOrderAsDelivered.mjs';
+
 //funciones de admninistradores
 import { getEmployees } from '../controllers/admin/staff/getEmployees.mjs';
 import { createEmployees } from '../controllers/admin/staff/createEmployees.mjs';
@@ -74,7 +78,11 @@ foodFlowRouter.patch('/users/editProfile/securityQuestion/:id_usuario', editSecu
 //funciones staff
 foodFlowRouter.get('/staff/getTables', getTables);
 foodFlowRouter.patch('/staff/usedTables/:id_mesa', changeTableState);
+foodFlowRouter.post("/staff/sendOrder", sendOrder);
 
+//chefs
+foodFlowRouter.get("/staff/getPendingOrders", getPendingOrders);
+foodFlowRouter.delete("/staff/orderDelivered/:id_orden", orderDelivered); 
 
 //funciones de administrador
 foodFlowRouter.get('/admin/Employees', getEmployees);

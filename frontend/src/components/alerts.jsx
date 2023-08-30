@@ -181,6 +181,15 @@ export const alertaErrorMesaVacia = () => {
     });
 }
 
+//pedido enviado
+export const alertaPedidoEnviado = () => {
+    Swal.fire({
+        icon: "success",
+        iconColor: "green",
+        text: "El pedido ha sido enviado exitosamente",
+        confirmButtonColor: "#F47228"
+    });
+}
 
 //crud productos
 

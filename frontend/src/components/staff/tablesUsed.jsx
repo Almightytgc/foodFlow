@@ -1,27 +1,25 @@
-import useSwr, {useSWRConfig } from "swr"
+import useSwr, { useSWRConfig } from "swr"
 import axios from "axios";
 
 export const TablesUsed = () => {
 
-    const {mutate} = useSWRConfig();
+    const { mutate } = useSWRConfig();
 
     const fetcher = async () => {
         const response = await axios.get("http://localhost:5000/staff/getTables");
         return response.data;
     }
 
-    const { data } = useSwr("mesas", fetcher, {refreshInterval: 100});
-
-    if (!data) {
-        return <h2 className="text-white text-6xl">Cargando...</h2>;
-    }
-
+    const { data, isLoading } = useSwr("mesas", fetcher, { refreshInterval: 100 });
 
     const cambiarEstadoMesa = async (id_mesa) => {
         const response = axios.patch(`http://localhost:5000/staff/usedTables/${id_mesa}`);
         await mutate("mesas");
         return response.data;
     }
+
+    if (isLoading) return <h2 className="text-white text-6xl">Cargando...</h2>;
+
     return (
         <>
             <div className="md:w-4/3 px-16 flex flex-col justify-start items-start">
@@ -54,7 +52,7 @@ export const TablesUsed = () => {
                                         <button onClick={() => cambiarEstadoMesa(mesa.id_mesa)} className="bg-[#F47228] text-white text-center hover:text-[#000] hover:bg-[#fff] duration-300 rounded-lg p-2 font-bold w-full">
                                             <span className="font-bold">
                                                 Marcar como desocupada
-                                            </span> 
+                                            </span>
                                         </button>
                                     </td>
                                 </tr>

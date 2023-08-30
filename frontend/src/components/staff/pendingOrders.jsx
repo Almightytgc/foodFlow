@@ -9,15 +9,19 @@ export const PendingOrders = () => {
   const staffLoggedStorage = localStorage.getItem("staffLogged");
 
   useEffect(() => {
+    // Función para cargar el valor de staffLogged desde el almacenamiento local
     const loadStaffLoggedValue = () => {
       return staffLoggedStorage ? JSON.parse(staffLoggedStorage) : false;
     };
 
+    // Obtener el valor de staffLogged y comprobar la autenticación
     const staffLoggedValue = loadStaffLoggedValue();
-    console.log("el mesero está ", staffLoggedValue);
+    console.log("El mesero está ", staffLoggedValue);
+
     if (!staffLoggedValue) {
+      // Redirigir a la página de autenticación si el usuario no está autenticado
       navigate("/authentication");
-      return alertaAutenticacion();
+      alertaAutenticacion(); // ¿Esta función se encarga de mostrar una alerta?
     }
   }, [navigate, staffLoggedStorage]);
 

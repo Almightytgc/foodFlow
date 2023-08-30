@@ -46,7 +46,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nombres`, `apellidos`, `telefono`, `correo`, `usuario`, `contrasenia`, `preguntaSeguridad`, `respuestaSeguridad`, `salario`, `fk_rol`) VALUES
-(53, 'Juan Manuel', 'Flores Crisóstomo', '56321489', 'admin@cdb.edu.sv', 'almightytgc', '$2b$10$VfG30aIm1MffBUjBzo08Q.cJiUocrnFpXsW.229LcS7so6gVUwpK2', '¿En qué hospital naciste?', '$2b$10$uNbLEjiFU5Q9SdxYyF2Deex9Wl4BkHhl9gzYjmEXaikGjxKJapUqS', 1500, 4),
+(53, 'Juan Manuel', 'Flores Crisóstomo', '56321489', 'admin@cdb.edu.sv', 'admin', '$2b$10$kGkyDqE9loiZ4BNXJzgtyO5RNEFExXl0lvWiu0ltqky/4Y7JOR5tO', '¿En qué hospital naciste?', '$2b$10$uNbLEjiFU5Q9SdxYyF2Deex9Wl4BkHhl9gzYjmEXaikGjxKJapUqS', 1500, 4),
 (83, 'cliente', 'cliente', '78964523', 'cliente@cliente', 'cliente', '$2b$10$3UrAMuqk5oY.L2YmdYFLrOJhecziPsTUalfnQF8bouhFUjrQAh7mm', '¿En qué hospital naciste?', '$2b$10$Cvdqcb7dFtsnklxfxiQ46OjRjwi.0I9B9UpMLT/.er6lYfVf4HXAy', NULL, 1),
 (84, 'mesero', 'mesero', '45698712', 'mesero@mesero', 'mesero', '$2b$10$BYTkC/yvUIFRtbgnNfdDCOhXa5hXWW3fk8sXsFcTWeRpnAwL3xurO', '¿En qué hospital naciste?', '$2b$10$eJDV3PcHP5jSgongCJqBz.SHy7mMR.bph7WTKyGuI0nfDQF3LS2sS', 1500, 2),
 (85, 'Amilcar', 'Guevara', '233123', 'amilcar@gmail.com', 'amilcar123', '$2b$10$N9sBCiSygqlFLzevCL4qdO8s8nMAwtYZPpE/jl0VHTz6HXafZQRsq', '¿Cuál es tu personaje histórico favorito?', '$2b$10$HuYHi28DqTqknKazSO8p5eb5WCMOyNm/4Y5LtmBDFYVgpHBCXYdo6', NULL, 1),

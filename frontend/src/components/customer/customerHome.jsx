@@ -9,7 +9,7 @@ import axios from "axios";
 import useSWR, { useSWRConfig } from "swr";
 
 //validar permiso
-import { alertaAutenticacion, alertaErrorSolicitudAtencion, alertaAtencionSolicitada } from "../alerts";
+import { alertaAutenticacion, alertaErrorSolicitudAtencion, alertaAtencionSolicitada, alertaErrorMesa } from "../alerts";
 
 //importar io para notificaciones 
 import io from "socket.io-client";
@@ -18,18 +18,37 @@ console.log("Creando instancia de socket");
 const socket = io("http://localhost:5000", { transports: ["websocket", "polling"] });
 
 socket.on("connect", () => {
-  console.log("Conexión exitosa a socket desde customer home");
+    console.log("Conexión exitosa a socket desde customer home");
 });
 
-
 export const CustomerIndex = () => {
-
+    const [id_usuario, setIdUsuario] = useState();
     const navigate = useNavigate();
 
-    const { mutate } = useSWRConfig();
+    const userLoggedStorage = localStorage.getItem("userLogged")
 
-    //proteger ruta
-    const userLoggedStorage = localStorage.getItem("userLogged");
+    useEffect(() => {
+        //set id de usuario
+        const id_usuarioLocal = localStorage.getItem('id_usuario');
+        setIdUsuario(id_usuarioLocal);
+    }, []);
+
+    const fetcher = async () => {
+        const { data } = await axios.get(`http://localhost:5000/users/getTableById/${id_usuario}`)
+        return data
+    }
+
+    const { data, error, isLoading } = useSWR("mesas", fetcher, { refreshInterval: 1000 });
+
+    const solicitarAtencion = () => {
+        if (data.fk_usuario === null) {
+            alertaErrorSolicitudAtencion();
+            return navigate("setTable");
+        } else {
+            socket.emit("solicitudAtencion", `Se necesita atención en la mesa ${data.id_mesa}`);
+            alertaAtencionSolicitada();
+        }
+    }
 
     useEffect(() => {
         const loadUserLoggedValue = () => {
@@ -42,38 +61,22 @@ export const CustomerIndex = () => {
             return navigate("/authentication");
         }
     }, []);
-
-
-    const [id_usuario, setIdUsuario] = useState();
-    useEffect(() => {
-        //set id de usuario
-        const id_usuarioLocal = localStorage.getItem('id_usuario');
-        setIdUsuario(id_usuarioLocal);
-    }, []);
-
-    const fetcher = async () => { 
-        return await axios.get(`http://localhost:5000/users/getTableById/${id_usuario}`)
-        .then(response => response.data)
-        .catch(error => null);
-    };
-
-    const { data, error } = useSWR("mesas", fetcher, {refreshInterval: 1000});
-
     if (error) {
-        console.error('Error al realizar el fetching', error);
+        <p className="text-3xl text-white">{error.response.data.message}</p>
+    } 
+    if (isLoading) return <p className="text-3xl text-white">Cargando . . . </p>
+
+    if (!data) {
+        return <p className="text-3xl text-white">Cargando . . . </p>
     }
 
-    const solicitarAtencion = () => {
-        if (data === null || data.fk_usuario === null) {
-            alertaErrorSolicitudAtencion();
-            return navigate("setTable");
-        }else {              
-            socket.emit("solicitudAtencion", `Se necesita atención en la mesa ${data.id_mesa}`);
-            alertaAtencionSolicitada();
-        }
+    if (data.message) {
+        return <p className="text-3xl text-white">{data.message}</p>
     }
 
-
+    if (!data.fk_usuario) {
+        return <p className="text-3xl text-white text-center mx-auto">Ultimos ajustes . . . </p>
+    }
 
     return (
         <>

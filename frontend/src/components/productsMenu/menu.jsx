@@ -6,7 +6,7 @@ import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import ReceiptPDF from "./receiptPDF";
 
 
-import { alertaErrorMesaVacia, alertaErrorCarritoVacio } from "../alerts";
+import { alertaErrorMesaVacia, alertaErrorCarritoVacio, alertaPedidoEnviado } from "../alerts";
 
 const MenuOptions = () => {
   const [cart, setCart] = useState([]); // Estado del carrito
@@ -166,7 +166,7 @@ const MenuOptions = () => {
       setCart([]);
       setTotal(0);
 
-      alert("Pedido enviado con éxito");
+      alertaPedidoEnviado();
     } catch (error) {
       console.error("Error al enviar el pedido:", error);
       if (error.response) {
@@ -470,37 +470,44 @@ const MenuOptions = () => {
                     Total: $ {calculateTotal().toFixed(2)}
                   </h3>
                 </div>
-                <button
-                  type="button"
-                  onClick={handleSendOrder}
-                  className="bg-[green] text-white hover:text-[#000] hover:bg-[#fff] duration-300 rounded-lg p-2 text-lg font-bold"
-                >
-                  <span className="font-bold">Enviar pedido</span>
-                </button>
-                <div
-                  onClick={carritoPDFClick}
-                  className="w-[15%] bg-[#F47228] mx-auto text-center p-2 rounded-xl text-white hover:text-[#000] hover:bg-[#fff] duration-300 font-bold"
-                >
-                  {cartPDF.length ? (
-                    <PDFDownloadLink
-                      document={
-                        cartPDF.length && (
-                          <ReceiptPDF cartItems={cartPDF} total={total} />
-                        )
-                      }
-                      fileName="receipt.pdf"
-                      ref={pdfDownloader}
-                    >
-                      {({ blob, url, loading, error }) => {
-                        return loading
-                          ? "Cargando documento..."
-                          : "Descargar recibo";
-                      }}
-                    </PDFDownloadLink>
-                  ) : (
-                    "Generar pdf"
-                  )}
+
+                <div className="flex flex-row justify-center gap-6">
+                  <button
+                    type="button"
+                    onClick={handleSendOrder}
+                    className="bg-[green] text-white hover:text-[#000] hover:bg-[#fff] duration-300 rounded-lg p-2 text-lg font-bold"
+                  >
+                    <span className="font-bold">Enviar pedido</span>
+                  </button>
+
+
+                  <div
+                    onClick={carritoPDFClick}
+                    className="w-[15%] bg-[#F47228] text-center p-2 rounded-xl text-white hover:text-[#000] hover:bg-[#fff] duration-300 font-bold"
+                  >
+                    {cartPDF.length ? (
+                      <PDFDownloadLink
+                        document={
+                          cartPDF.length && (
+                            <ReceiptPDF cartItems={cartPDF} total={total} />
+                          )
+                        }
+                        fileName="receipt.pdf"
+                        ref={pdfDownloader}
+                      >
+                        {({ blob, url, loading, error }) => {
+                          return loading
+                            ? "Cargando documento..."
+                            : "Descargar recibo";
+                        }}
+                      </PDFDownloadLink>
+                    ) : (
+                      "Generar pdf"
+                    )}
+                  </div>
                 </div>
+
+
               </div>
             </div>
           </section>
