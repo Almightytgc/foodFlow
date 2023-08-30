@@ -1,0 +1,44 @@
+--dump para los roles--
+
+
+INSERT INTO `rol` (`id_rol`, `descripcion`) VALUES
+(1, 'Cliente'),
+(2, 'Mesero'),
+(3, 'Chef'),
+(4, 'Administrador');
+
+
+
+--dump para usuarios--
+
+INSERT INTO `usuarios` (`id_usuario`, `nombres`, `apellidos`, `telefono`, `correo`, `usuario`, `contrasenia`, `preguntaSeguridad`, `respuestaSeguridad`, `salario`, `fk_rol`) VALUES
+(53, 'Juan Manuel', 'Flores Crisóstomo', '56321489', 'admin@cdb.edu.sv', 'almightytgc', '$2b$10$VfG30aIm1MffBUjBzo08Q.cJiUocrnFpXsW.229LcS7so6gVUwpK2', '¿En qué hospital naciste?', '$2b$10$uNbLEjiFU5Q9SdxYyF2Deex9Wl4BkHhl9gzYjmEXaikGjxKJapUqS', 1500, 4),
+(83, 'cliente', 'cliente', '78964523', 'cliente@cliente', 'cliente', '$2b$10$3UrAMuqk5oY.L2YmdYFLrOJhecziPsTUalfnQF8bouhFUjrQAh7mm', '¿En qué hospital naciste?', '$2b$10$Cvdqcb7dFtsnklxfxiQ46OjRjwi.0I9B9UpMLT/.er6lYfVf4HXAy', NULL, 1),
+(84, 'mesero', 'mesero', '45698712', 'mesero@mesero', 'mesero', '$2b$10$BYTkC/yvUIFRtbgnNfdDCOhXa5hXWW3fk8sXsFcTWeRpnAwL3xurO', '¿En qué hospital naciste?', '$2b$10$eJDV3PcHP5jSgongCJqBz.SHy7mMR.bph7WTKyGuI0nfDQF3LS2sS', NULL, 2);
+
+
+----------administrador---------
+usuario: almightytgc
+contraseña: cotuzatgc
+pregunta seguridad: en qué hospital naciste
+respuesta seguridad: 1 mayo
+
+---------cliente----------------------
+usuario: cliente
+contraseña: cliente
+pregunta seguridad: en qué hospital naciste
+respuesta seguridad: 1 mayo
+
+---------mesero----------------------
+usuario: mesero
+contraseña: mesero
+pregunta seguridad: en qué hospital naciste
+respuesta seguridad: 1 mayo
+
+
+
+
+
+
+----dump de mesas-------
+INSERT INTO `mesas` (`id_mesa`, `token`, `fk_usuario`) VALUES(3, 'm01', NULL),(4, 'm02', NULL),(5, 'm03', NULL),(6, 'm04', NULL),(7, 'm05', NULL),(8, 'm06', NULL),(9, 'm07', NULL),(10, 'm08', NULL),(11, 'm09', NULL),(12, 'm10', NULL),(13, 'm11', NULL),(14, 'm12', NULL),(15, 'm13', NULL),(16, 'm14', NULL),(17, 'm15', NULL),(18, 'm16', NULL),(19, 'm17', NULL),(20, 'm18', NULL),(21, 'm19', NULL),(22, 'm20', NULL);

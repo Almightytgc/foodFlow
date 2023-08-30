@@ -1,0 +1,70 @@
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model rol {
+  id_rol      Int        @id @default(autoincrement())
+  descripcion String
+  usuario     usuarios[]
+}
+
+model usuarios {
+  id_usuario         Int           @id @default(autoincrement())
+  nombres            String
+  apellidos          String
+  telefono           String
+  correo             String
+  usuario            String
+  contrasenia        String
+  preguntaSeguridad  String?       @default(dbgenerated("NULL"))
+  respuestaSeguridad String?       @default(dbgenerated("NULL"))
+  salario            Float?        @default(dbgenerated("NULL"))
+  cargo              rol           @relation(fields: [fk_rol], references: [id_rol])
+  fk_rol             Int           @default(1)
+  orden              orden[]
+  comentario         comentarios[]
+  mesa               mesas[]
+}
+
+model comentarios {
+  id_comentario Int      @id @default(autoincrement())
+  comentario    String
+  autor         usuarios @relation(fields: [fk_usuario], references: [id_usuario])
+  fk_usuario    Int
+}
+
+model mesas {
+  id_mesa        Int               @id @default(autoincrement())
+  token          String
+  usuario        usuarios?         @relation(fields: [fk_usuario], references: [id_usuario])
+  fk_usuario     Int?              @default(dbgenerated("NULL"))
+  orden          orden[]
+}
+
+model productos {
+  id_producto    Int               @id @default(autoincrement())
+  nombre         String
+  foto           String?           @default(dbgenerated("NULL"))  
+  precio         Float
+  categoria      String
+}
+
+model orden {
+  id_orden     Int     @id @default(autoincrement())
+  mesa         mesas   @relation(fields: [fk_mesa], references: [id_mesa])
+  fk_mesa      Int
+  mesero       usuarios@relation(fields: [fk_usuario], references: [id_usuario])
+  fk_usuario   Int
+  total        Float
+  productos    Json   
+}
+
