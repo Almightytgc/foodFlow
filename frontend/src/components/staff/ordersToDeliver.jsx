@@ -10,7 +10,6 @@ export const OrdersToDeliver = () => {
       "http://localhost:5000/staff/getPendingOrders"
     );
     console.log(response.data);
-    console.log(response.data);
     return response.data;
   };
 
