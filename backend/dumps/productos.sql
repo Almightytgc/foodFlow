@@ -47,12 +47,9 @@ INSERT INTO `productos` (`id_producto`, `nombre`, `foto`, `precio`, `categoria`)
 (12, 'chocolate caliente', '/producto/1691703440044.jpg', 2.6, 'Bebidas'),
 (13, 'Pollo a la Parrilla con Verduras', '/producto/1691703525324.jpg', 6.99, 'Platillo Principal'),
 (14, 'Salmón al Horno con Salsa de Eneldo', '/producto/1691703657025.jpg', 8.99, 'Platillo Principal'),
-(15, 'Tacos de Pavo', '/producto/1691703758216.jpg', 5.99, 'Platillo Principal'),
 (16, 'Pasta Primavera', '/producto/1691703821141.jpg', 5.99, 'Platillo Principal'),
-(17, 'Bistec a la Parrilla con Puré de Papas', '/producto/1691703897230.jpg', 6.99, 'Platillo Principal'),
 (19, 'Helado', '/producto/1691704712035.jpg', 1.99, 'Postre'),
 (21, 'Tiramisú', '/producto/1691704852058.jpg', 3.66, 'Postre'),
-(22, 'Cheesecake', '/producto/1691704988173.jpg', 3.66, 'Postre'),
 (42, 'Chonguenga', '/producto/1691893885509.jpeg', 0.99, 'Entradas');
 
 --

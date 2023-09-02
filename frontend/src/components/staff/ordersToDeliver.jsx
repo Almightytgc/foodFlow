@@ -9,7 +9,7 @@ export const OrdersToDeliver = () => {
     const response = await axios.get(
       "http://localhost:5000/staff/getPendingOrders"
     );
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   };
 
@@ -22,6 +22,7 @@ export const OrdersToDeliver = () => {
       const response = await axios.delete(
         `http://localhost:5000/staff/orderDelivered/${idOrden}`
       );
+      mutate("ordenesPendientes");
       if (response) {
         return console.log("Orden marcada como entregada exitosamente");
       }
@@ -30,7 +31,7 @@ export const OrdersToDeliver = () => {
     }
   };
 
-  if (isLoading) return <h2 className="text-white text-6xl">Cargando...</h2>;
+  if (isLoading) return <h2 className="text-white text-6xl text-center mx-auto">Cargando...</h2>;
 
 
   return (

@@ -9,10 +9,10 @@ import { ErrorPage } from "./error-page";
 //menu
 import MenuOptions from "../components/productsMenu/menu";
 import MenuUser from "../components/productsMenu/menuUser";
-import { MenuAppetizers } from "../components/productsMenu/menuAppetizers";
-import { MenuMainDishes } from "../components/productsMenu/menuMainDishes";
-import { MenuBeverages } from "../components/productsMenu/menuBeverages";
-import { MenuDesserts } from "../components/productsMenu/menuDesserts";
+// import { MenuAppetizers } from "../components/productsMenu/menuAppetizers";
+// import { MenuMainDishes } from "../components/productsMenu/menuMainDishes";
+// import { MenuBeverages } from "../components/productsMenu/menuBeverages";
+// import { MenuDesserts } from "../components/productsMenu/menuDesserts";
 
 //componentes usuario anónimo
 import { Index } from "../components/indexPage/Index";
@@ -61,6 +61,9 @@ import { UserPasswordEditionForm } from "../components/editProfile/editPassword"
 import { SecurityQuestionForm } from "../components/editProfile/securityQuestion";
 
 
+import { NavSu } from "../components/templates/navbarr";
+
+
 export const PagesRouter = createBrowserRouter([
   // rutas para usuario anónimo
   {
@@ -80,22 +83,22 @@ export const PagesRouter = createBrowserRouter([
         path: "/menu",
         element: <MenuUser />
       },
-      {
-        path: "/menu/appetizers",
-        element: <MenuAppetizers />
-      },
-      {
-        path: "/menu/MainDishes",
-        element: <MenuMainDishes />
-      },
-      {
-        path: "/menu/beverages",
-        element: <MenuBeverages />
-      },
-      {
-        path: "/menu/desserts",
-        element: <MenuDesserts />
-      },
+      // {
+      //   path: "/menu/appetizers",
+      //   element: <MenuAppetizers />
+      // },
+      // {
+      //   path: "/menu/MainDishes",
+      //   element: <MenuMainDishes />
+      // },
+      // {
+      //   path: "/menu/beverages",
+      //   element: <MenuBeverages />
+      // },
+      // {
+      //   path: "/menu/desserts",
+      //   element: <MenuDesserts />
+      // },
       {
         path: "/authentication",
         element: <LoginForm />,
@@ -127,22 +130,6 @@ export const PagesRouter = createBrowserRouter([
       {
         path: "/customer/menu",
         element: <MenuUser />
-      },
-      {
-        path: "/customer/menu/appetizers",
-        element: <MenuAppetizers />
-      },
-      {
-        path: "/customer/menu/MainDishes",
-        element: <MenuMainDishes />
-      },
-      {
-        path: "/customer/menu/beverages",
-        element: <MenuBeverages />
-      },
-      {
-        path: "/customer/menu/desserts",
-        element: <MenuDesserts />
       },
       {
         path: "/customer/addComment",
@@ -180,22 +167,6 @@ export const PagesRouter = createBrowserRouter([
       {
         path: "/staff/menuOptions",
         element: <MenuOptions />
-      },
-      {
-        path: "/staff/menuOptions/appetizers",
-        element: <MenuAppetizers />
-      },
-      {
-        path: "/staff/menuOptions/MainDishes",
-        element: <MenuMainDishes />
-      },
-      {
-        path: "/staff/menuOptions/beverages",
-        element: <MenuBeverages />
-      },
-      {
-        path: "/staff/menuOptions/desserts",
-        element: <MenuDesserts />
       },
       {
         path: "/staff/pendingOrders",
@@ -321,4 +292,8 @@ export const PagesRouter = createBrowserRouter([
 
     ],
   },
+  {
+      path: "nav",
+      element: <NavSu />
+  }
 ]);

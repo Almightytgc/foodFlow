@@ -6,19 +6,28 @@ export const TablesUsed = () => {
     const { mutate } = useSWRConfig();
 
     const fetcher = async () => {
-        const response = await axios.get("http://localhost:5000/staff/getTables");
+        const response = await axios.get("http://localhost:5000/staff/getTables");;
+        console.log(response.data);
         return response.data;
     }
 
-    const { data, isLoading } = useSwr("mesas", fetcher, { refreshInterval: 100 });
+    const { data, isLoading: tablesLoading, error } = useSwr("mesas", fetcher);
+
+    if (!data) return [];
+
+    if (tablesLoading) return <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
+
+    if (error) <p className="text-3xl text-white text-center">{error.response.data.message}</p>
+
 
     const cambiarEstadoMesa = async (id_mesa) => {
-        const response = axios.patch(`http://localhost:5000/staff/usedTables/${id_mesa}`);
-        await mutate("mesas");
-        return response.data;
+        try {
+            const response = await axios.patch(`http://localhost:5000/staff/usedTables/${id_mesa}`);
+            mutate("mesas");
+        } catch (error) {
+            console.error(error);
+        }
     }
-
-    if (isLoading) return <h2 className="text-white text-6xl">Cargando...</h2>;
 
     return (
         <>
@@ -42,7 +51,7 @@ export const TablesUsed = () => {
                     </thead>
 
                     <tbody className="text-center">
-                        {data.map((mesa, index) => {
+                        {data && data.map((mesa, index) => {
                             return (
                                 <tr key={mesa.id_mesa} className="text-center">
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium bg-[#1C1C1C] text-[#F0F0F0]">{index + 1}</td>

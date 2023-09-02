@@ -45,9 +45,14 @@ export const CustomerIndex = () => {
             alertaErrorSolicitudAtencion();
             return navigate("setTable");
         } else {
-            socket.emit("solicitudAtencion", `Se necesita atención en la mesa ${data.id_mesa}`);
-            alertaAtencionSolicitada();
+            console.log(data.token);
+            socket.emit("solicitudAtencion", `Se necesita atención en la mesa ${data.token}`);
+            return alertaAtencionSolicitada();
         }
+    }
+
+    const configurarMesa = () => {
+        return navigate("setTable");
     }
 
     useEffect(() => {
@@ -75,7 +80,9 @@ export const CustomerIndex = () => {
     }
 
     if (!data.fk_usuario) {
-        return <p className="text-3xl text-white text-center mx-auto">Ultimos ajustes . . . </p>
+        return <p className="text-3xl text-white text-center mx-auto">Últimos ajustes . . .<br /> <span className="text-lg border rounded-xl p-1.5" onClick={() => configurarMesa()}>Configurar mesa</span> </p>
+        
+
     }
 
     return (

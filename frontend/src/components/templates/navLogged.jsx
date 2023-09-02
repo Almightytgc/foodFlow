@@ -30,6 +30,17 @@ export function NavBarLogged() {
 
   const { mutate } = useSWRConfig();
 
+  //actualizar la hora
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHora(new Date());
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
 
   useEffect(() => {
     //set id de usuario
@@ -43,38 +54,30 @@ export function NavBarLogged() {
 
   const fetcher = async () => {
     const response = await axios.get(`http://localhost:5000/users/getUserById/${id_usuario}`);
+    console.log(response.data)
     return response.data;
   };
 
   const { data, error } = useSWR(id_usuario ? 'user' : null, fetcher);
-  mutate("user");
 
   if (error) {
     console.error('Error al realizar el fetching', error);
   }
 
+  
   const userFetched = data?.usuario;
   //validar rol de mesero
   const rolMesero = data?.fk_rol;
-  //validar que un mesero está logueado para recibbir alertas
 
-  if (rolMesero == "2") {
+  //validar que un mesero está logueado para recibir alertas
+  if (rolMesero == 2) {
     socket.on("mensajeAtencionStaff", (data) => {
       alertAtencion(data);
     })
-  }
+  } 
 
 
-  //actualizar la hora
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setHora(new Date());
-    }, 1000);
-    
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+
 
   //validar que parte del día es
   const parteDia = () => {
@@ -100,10 +103,10 @@ export function NavBarLogged() {
   const AdminLoggedStorage = localStorage.getItem("adminLogged");
 
   const validarRutaInicio = () => {
-    if (userLoggedValue && mesaValidada  && !staffLoggedStorage && !AdminLoggedStorage) {
+    if (userLoggedValue && mesaValidada && !staffLoggedStorage && !AdminLoggedStorage) {
       return rutaInicio = "/customer";
 
-    }else if (staffLoggedStorage && !userLoggedValue && !AdminLoggedStorage) {
+    } else if (staffLoggedStorage && !userLoggedValue && !AdminLoggedStorage) {
       return rutaInicio = "/staff";
 
     } else if (AdminLoggedStorage && !userLoggedValue && !staffLoggedStorage) {
@@ -121,59 +124,59 @@ export function NavBarLogged() {
     navigate("/");
   }
 
- /*   //translate
-    const googleTranslateElementInit = () => {
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: 'en',
-          autoDisplay: false,
-        },
-        'google_translate_element'
-      );
-    };
-  
-    useEffect(() => {
-      const existingScript = document.getElementById('google-translate-api');
-  
-      if (!existingScript) {
-        const script = document.createElement('script');
-        script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-        script.id = 'google-translate-api';
-        script.async = true;
-        document.body.appendChild(script);
-      }
-  
-      window.googleTranslateElementInit = googleTranslateElementInit;
-  
-      return () => {
-        // Clean up the script when the component unmounts
-        if (existingScript) {
-          document.body.removeChild(existingScript);
-        }
-        delete window.googleTranslateElementInit;
-      };
-    }, []);
-
-    */  
+  /*   //translate
+     const googleTranslateElementInit = () => {
+       new window.google.translate.TranslateElement(
+         {
+           pageLanguage: 'en',
+           autoDisplay: false,
+         },
+         'google_translate_element'
+       );
+     };
+   
+     useEffect(() => {
+       const existingScript = document.getElementById('google-translate-api');
+   
+       if (!existingScript) {
+         const script = document.createElement('script');
+         script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+         script.id = 'google-translate-api';
+         script.async = true;
+         document.body.appendChild(script);
+       }
+   
+       window.googleTranslateElementInit = googleTranslateElementInit;
+   
+       return () => {
+         // Clean up the script when the component unmounts
+         if (existingScript) {
+           document.body.removeChild(existingScript);
+         }
+         delete window.googleTranslateElementInit;
+       };
+     }, []);
+ 
+     */
 
 
 
   return (
     <>
-    
+
       <nav className="px-8 py-4 bg-[#F47228] shadow flex flex-col lg:flex-row md:justify-between  justify-center items-center w-full max-w-sm:px-4 max-w-sm:py-2 max-lg:flex-wrap">
 
         {/* logo foodflow */}
         <Link to={rutaInicioValidada} className="flex items-center mb-4 md:mb-0">
           <img className="max-w-[200px]" src={logoFoodFlowNegro} />
         </Link>
-        
+
         <h4 className="text-center font-bold text-xl"> {parteDia()}</h4>
         {/*<div id="google_translate_element"></div>*/}
 
         <div className="font-bold text-xl flex items-center gap-10 flex-wrap justify-center">
 
-          <div className="flex flex-col text-center">
+          <Link to={`/staff/editOptions/${id_usuario}`} className="flex flex-col text-center">
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +194,7 @@ export function NavBarLogged() {
               </svg>
             </span>
             <h4>{userFetched}</h4>
-          </div>
+          </Link>
 
           <div className='bg-[#211B16] hover:bg-[#fff] text-[#fff] hover:text-[#211B16] duration-500 rounded-xl p-2 flex items-center' onClick={cerrarSesion}>
             <span  >

@@ -45,6 +45,18 @@ export const AddCommentForm = () => {
         //parseo del id del usuario
         const id_parseado = parseInt(id_usuario);
         let mensajeVacio = false;
+        let espacios = false;
+
+        if (mensaje.trim().length === 0) {
+           return  Swal.fire({
+                icon: 'error',
+                iconColor: 'red',
+                title: 'Campo vacío',
+                text: 'Por favor ingresa un mensaje valido',
+                confirmButtonColor: '#249643',
+                color: '##211B16'
+            })
+        }
 
         if (mensaje == "") {
             mensajeVacio = true;
@@ -58,7 +70,7 @@ export const AddCommentForm = () => {
             })
         }
 
-        if (!mensajeVacio) {
+        if (!mensajeVacio && !espacios) {
             try {
                 await axios.post(`http://localhost:5000/customer/addComment`,
                     {
