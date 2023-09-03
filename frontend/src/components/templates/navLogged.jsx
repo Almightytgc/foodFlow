@@ -58,7 +58,7 @@ export function NavBarLogged() {
     return response.data;
   };
 
-  const { data, error } = useSWR(id_usuario ? 'user' : null, fetcher);
+  const { data, error } = useSWR(id_usuario ? 'user' : null, fetcher, {refreshInterval: 1000});
 
   if (error) {
     console.error('Error al realizar el fetching', error);

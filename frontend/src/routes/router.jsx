@@ -61,7 +61,6 @@ import { UserPasswordEditionForm } from "../components/editProfile/editPassword"
 import { SecurityQuestionForm } from "../components/editProfile/securityQuestion";
 
 
-import { NavSu } from "../components/templates/navbarr";
 
 
 export const PagesRouter = createBrowserRouter([
@@ -291,9 +290,5 @@ export const PagesRouter = createBrowserRouter([
       },
 
     ],
-  },
-  {
-      path: "nav",
-      element: <NavSu />
   }
 ]);
