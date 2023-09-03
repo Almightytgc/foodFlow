@@ -14,20 +14,57 @@ const MenuOptions = () => {
   const [total, setTotal] = useState(0);
   const [selectedTable, setSelectedTable] = useState(null);
   const [tables, setTables] = useState([]);
+  //pdf
   const pdfDownloader = useRef();
-
-  const fetchTables = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/staff/getTables");
-      setTables(response.data);
-    } catch (error) {
-      console.error("Error fetching tables:", error);
-    }
-  };
+  //scroll to top
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
-    fetchTables();
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+
+  // const fetchTables = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:5000/staff/getTables");
+  //     setTables(response.data);
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error("Error fetching tables:", error);
+  //   }
+  // };
+
+  // const {data: dataTables, isLoading: isLoadingDataTables} = useSWR("mesasDisponibles", fetchTables); 
+
+  // if (!dataTables) return [];
+
+  // if (isLoadingDataTables) return <h2 className="text-white text-6xl mx-auto">Cargando</h2>;
+
+
+
+
+  // useEffect(() => {
+  //   fetchTables();
+  // }, []);
 
   const carritoPDFClick = () => {
     setTotal(calculateTotal());
@@ -43,6 +80,11 @@ const MenuOptions = () => {
     const response = await axios.get(url);
     return response.data;
   };
+
+  const { data: dataTables, isLoading: isLoadingDataTables } = useSWR(
+    "http://localhost:5000/staff/getTables",
+    fetcher
+  );
 
   const { data: dataEntradas, isLoading: isLoadingDataEntradas } = useSWR(
     "http://localhost:5000/products/getAppetizers",
@@ -103,16 +145,11 @@ const MenuOptions = () => {
   // Función para tomar orden de una mesa
   const handleTakeOrder = (table) => {
     console.log(table); // Verifica si la información de la mesa es correcta
-
     setSelectedTable(table);
-    // Aquí podrías realizar cualquier acción necesaria al tomar la orden de la mesa,
-    // como redirigir a otra página para gestionar la orden, etc.
   };
 
-
-
-  if (isLoadingDataEntradas || isLoadingDataBebidas || isLoadingDataMainDishes || isLoadingDataDesserts) {
-    return <h2 className="text-white text-6xl">Cargando...</h2>;
+  if (isLoadingDataEntradas || isLoadingDataBebidas || isLoadingDataMainDishes || isLoadingDataDesserts || isLoadingDataTables) {
+    return <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
   }
 
 
@@ -180,6 +217,16 @@ const MenuOptions = () => {
 
   return (
     <>
+
+      {showScrollButton && (
+        <div
+          className="scroll-button bg-[#F47228] text-white hover:text-[#000] hover:bg-[#fff] duration-300 rounded-full w-12 h-12 flex items-center justify-center fixed bottom-4 right-4 cursor-pointer text-4xl font-bold"
+          onClick={scrollToTop}
+        >
+          ↑
+        </div>
+      )}
+
       <div className="mt-15 rounded-2xl p-5 flex items-center justify-center flex-wrap flex-col">
         <div className="w-full flex flex-row justify-center my-20">
           <div className="mx-1">
@@ -219,7 +266,7 @@ const MenuOptions = () => {
               </tr>
             </thead>
             <tbody>
-              {tables.map((table) => (
+              {dataTables.map((table) => (
                 <tr key={table.id_mesa}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium bg-[#1C1C1C] text-[#F0F0F0] text-center">{table.id_mesa}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium bg-[#1C1C1C] text-[#F0F0F0] text-center">{table.token}</td>

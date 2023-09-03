@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,31 @@ const MenuUser = () => {
   const userLoggedStorage = localStorage.getItem("userLogged");
   let rutaRegresarMenu = "";
   let rutaValidada = "";
+
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   // Llamadas a la API para diferentes categorías
   const fetcher = async (url) => {
@@ -39,6 +64,15 @@ const MenuUser = () => {
   rutaValidada = validarRuta();
   return (
     <>
+      {showScrollButton && (
+        <div
+          className="scroll-button bg-[#F47228] text-white hover:text-[#000] hover:bg-[#fff] duration-300 rounded-full w-12 h-12 flex items-center justify-center fixed bottom-4 right-4 cursor-pointer text-4xl font-bold"
+          onClick={scrollToTop}
+        >
+          ↑
+        </div>
+      )}
+
       <div className="mt-15 rounded-2xl p-5 flex items-center justify-center flex-col max-sm:flex-wrap-reverse">
         <section className="text-gray-400">
           <div className="container px-5 py-24 mx-auto">
