@@ -16,6 +16,19 @@ const MenuOptions = () => {
   const [tables, setTables] = useState([]);
   const pdfDownloader = useRef();
 
+  const fetchTables = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/staff/getTables");
+      setTables(response.data);
+    } catch (error) {
+      console.error("Error fetching tables:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTables();
+  }, []);
+
   const carritoPDFClick = () => {
     setTotal(calculateTotal());
     setCartPDF([...cart]); // Crear una copia del carrito
@@ -96,18 +109,7 @@ const MenuOptions = () => {
     // como redirigir a otra página para gestionar la orden, etc.
   };
 
-  const fetchTables = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/staff/getTables");
-      setTables(response.data);
-    } catch (error) {
-      console.error("Error fetching tables:", error);
-    }
-  };
 
-  useEffect(() => {
-    fetchTables();
-  }, []);
 
   if (isLoadingDataEntradas || isLoadingDataBebidas || isLoadingDataMainDishes || isLoadingDataDesserts) {
     return <h2 className="text-white text-6xl">Cargando...</h2>;
@@ -183,7 +185,7 @@ const MenuOptions = () => {
           <div className="mx-1">
             <Link
               className="bg-[#F47228] text-white hover:text-[#000] hover:bg-[#fff] duration-300 rounded-lg p-2 text-lg font-bold"
-              to={"/"}
+              to={"/staff/"}
             >
               <span className="font-bold"></span> Regresar
             </Link>

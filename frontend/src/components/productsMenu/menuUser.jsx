@@ -8,6 +8,10 @@ import ReceiptPDF from './receiptPDF';
 
 const MenuUser = () => {
   const [cart, setCart] = useState([]); // Estado del carrito
+  //valor de localSTorage para verificar si un usuario está logueado
+  const userLoggedStorage = localStorage.getItem("userLogged");
+  let rutaRegresarMenu = "";
+  let rutaValidada = "";
 
   // Llamadas a la API para diferentes categorías
   const fetcher = async (url) => {
@@ -20,44 +24,19 @@ const MenuUser = () => {
   const { data: dataMainDishes } = useSWR("http://localhost:5000/products/getMainDishes", fetcher);
   const { data: dataDesserts } = useSWR("http://localhost:5000/products/getDesserts", fetcher);
 
-  if (!dataEntradas || !dataBebidas || !dataMainDishes || !dataDesserts) {
-    return <h2 className="text-white text-6xl">Cargando...</h2>;
+  if (!dataEntradas || !dataBebidas || !dataMainDishes || !dataDesserts) return <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
+
+  //validar ruta para salir del menú
+  const validarRuta = () => {
+    if (userLoggedStorage) {
+      rutaRegresarMenu = "/customer/"
+    } else {
+      rutaRegresarMenu = "/";
+    }
+    return rutaRegresarMenu;
   }
 
-  const handleAddToCart = (item) => {
-    const existingCartItem = cart.find((cartItem) => cartItem.id_producto === item.id_producto);
-
-    if (existingCartItem) {
-      const updatedCart = cart.map((cartItem) =>
-        cartItem.id_producto === item.id_producto
-          ? { ...cartItem, cantidad: cartItem.cantidad + 1 }
-          : cartItem
-      );
-      setCart(updatedCart);
-    } else {
-      setCart([...cart, { ...item, cantidad: 1 }]);
-    }
-  };
-
-  const handleRemoveFromCart = (item) => {
-    if (item.cantidad > 1) {
-      const updatedCart = cart.map((cartItem) =>
-        cartItem.id_producto === item.id_producto
-          ? { ...cartItem, cantidad: cartItem.cantidad - 1 }
-          : cartItem
-      );
-      setCart(updatedCart);
-    } else {
-      const updatedCart = cart.filter((cartItem) => cartItem.id_producto !== item.id_producto);
-      setCart(updatedCart);
-    }
-  };
-
-  // Función para calcular el total del carrito
-  const calculateTotal = () => {
-    return cart.reduce((total, item) => (total + item.precio * item.cantidad), 0);
-  };
-
+  rutaValidada = validarRuta();
   return (
     <>
       <div className="mt-15 rounded-2xl p-5 flex items-center justify-center flex-col max-sm:flex-wrap-reverse">
@@ -67,7 +46,7 @@ const MenuUser = () => {
               <div className="mx-1">
                 <Link
                   className="bg-[#F47228] text-white hover:text-[#000] hover:bg-[#fff] duration-300 rounded-lg p-2 text-lg font-bold"
-                  to={'/'}
+                  to={rutaValidada}
                 >
                   <span className="font-bold"></span> Regresar
                 </Link>
@@ -92,7 +71,6 @@ const MenuUser = () => {
                       </h2>
                       <p className="leading-relaxed px-5 text-center">
                         Precio: {entrada.precio}
-
                       </p>
                     </div>
                   </div>

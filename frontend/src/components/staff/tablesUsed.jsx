@@ -7,13 +7,16 @@ export const TablesUsed = () => {
 
     const fetcher = async () => {
         const response = await axios.get("http://localhost:5000/staff/getTables");;
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
     }
 
     const { data, isLoading: tablesLoading, error } = useSwr("mesas", fetcher);
 
-    if (!data) return [];
+    if (!data) {
+        <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
+         return [];
+    }
 
     if (tablesLoading) return <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
 
@@ -51,7 +54,7 @@ export const TablesUsed = () => {
                     </thead>
 
                     <tbody className="text-center">
-                        {data && data.map((mesa, index) => {
+                        {data.map((mesa, index) => {
                             return (
                                 <tr key={mesa.id_mesa} className="text-center">
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium bg-[#1C1C1C] text-[#F0F0F0]">{index + 1}</td>

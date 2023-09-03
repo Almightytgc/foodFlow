@@ -24,37 +24,9 @@ socket.on("connect", () => {
 export const CustomerIndex = () => {
     const [id_usuario, setIdUsuario] = useState();
     const navigate = useNavigate();
+    const userLoggedStorage = localStorage.getItem("userLogged");
 
-    const userLoggedStorage = localStorage.getItem("userLogged")
-
-    useEffect(() => {
-        //set id de usuario
-        const id_usuarioLocal = localStorage.getItem('id_usuario');
-        setIdUsuario(id_usuarioLocal);
-    }, []);
-
-    const fetcher = async () => {
-        const { data } = await axios.get(`http://localhost:5000/users/getTableById/${id_usuario}`)
-        return data
-    }
-
-    const { data, error, isLoading } = useSWR("mesas", fetcher, { refreshInterval: 1000 });
-
-    const solicitarAtencion = () => {
-        if (data.fk_usuario === null) {
-            alertaErrorSolicitudAtencion();
-            return navigate("setTable");
-        } else {
-            console.log(data.token);
-            socket.emit("solicitudAtencion", `Se necesita atención en la mesa ${data.token}`);
-            return alertaAtencionSolicitada();
-        }
-    }
-
-    const configurarMesa = () => {
-        return navigate("setTable");
-    }
-
+    //proteger la ruta
     useEffect(() => {
         const loadUserLoggedValue = () => {
             return userLoggedStorage ? JSON.parse(userLoggedStorage) : false;
@@ -66,23 +38,45 @@ export const CustomerIndex = () => {
             return navigate("/authentication");
         }
     }, []);
+
+    //obtener id del usuario
+    useEffect(() => {
+        //set id de usuario
+        const id_usuarioLocal = localStorage.getItem('id_usuario');
+        setIdUsuario(id_usuarioLocal);
+    }, []);
+
+    const configurarMesa = () => {
+        return navigate("setTable");
+    }
+
+    const fetcher = async () => {
+        const { data } = await axios.get(`http://localhost:5000/users/getTableById/${id_usuario}`);
+        console.log(data);
+        return data;
+    }
+
+    const { data, error, isLoading, isValidating } = useSWR("mesas", fetcher, { refreshInterval: 1000 });
+
+
+    if (!data) return <p className="text-3xl text-white mx-auto">Cargando . . . </p>;
+    if (isLoading) return <p className="text-3xl text-white mx-auto">Cargando . . . </p>;
+    if (!data.fk_usuario) <p className="text-3xl text-white text-center mx-auto">Últimos ajustes . . .</p>
     if (error) {
-        <p className="text-3xl text-white">{error.response.data.message}</p>
-    } 
-    if (isLoading) return <p className="text-3xl text-white">Cargando . . . </p>
-
-    if (!data) {
-        return <p className="text-3xl text-white">Cargando . . . </p>
+        return <p className="text-3xl text-white mx-auto text-center">{error.response.data.message} <br /> <span className="text-lg border rounded-xl p-1.5 hover:bg-white hover:text-black duration-300" onClick={() => configurarMesa()}>Configurar mesa</span> </p>;
     }
+    if (data.message) return <p className="text-3xl text-white">{data.message}</p>;
 
-    if (data.message) {
-        return <p className="text-3xl text-white">{data.message}</p>
-    }
 
-    if (!data.fk_usuario) {
-        return <p className="text-3xl text-white text-center mx-auto">Últimos ajustes . . .<br /> <span className="text-lg border rounded-xl p-1.5" onClick={() => configurarMesa()}>Configurar mesa</span> </p>
-        
-
+    const solicitarAtencion = () => {
+        if (data.fk_usuario === null) {
+            alertaErrorSolicitudAtencion();
+            return navigate("setTable");
+        } else {
+            console.log(data.token);
+            socket.emit("solicitudAtencion", `Se necesita atención en la mesa ${data.token}`);
+            return alertaAtencionSolicitada();
+        }
     }
 
     return (
