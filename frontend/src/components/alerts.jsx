@@ -156,6 +156,47 @@ export const alertaErrorSolicitudAtencion = () => {
 
 //staff
 
+//producto agregado a carrito
+export const alertaProductoAgregadoCarrito = (producto) => {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'success',
+        iconColor: "green",
+        title: producto + " agregado al carrito"
+      })
+}
+
+export const alertaProductoEliminadoCarrito = (producto) => {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'info',
+        iconColor: "red",
+        title: producto + " eliminado del carrito"
+      })
+}
+
 //mesa no seleccionada
 export const alertaErrorMesaVacia = () => {
     Swal.fire({

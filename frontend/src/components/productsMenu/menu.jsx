@@ -6,7 +6,7 @@ import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import ReceiptPDF from "./receiptPDF";
 
 
-import { alertaErrorMesaVacia, alertaErrorCarritoVacio, alertaPedidoEnviado } from "../alerts";
+import { alertaErrorMesaVacia, alertaErrorCarritoVacio, alertaProductoAgregadoCarrito, alertaProductoEliminadoCarrito, alertaPedidoEnviado } from "../alerts";
 
 const MenuOptions = () => {
   const [cart, setCart] = useState([]); // Estado del carrito
@@ -42,29 +42,6 @@ const MenuOptions = () => {
     });
   };
 
-
-  // const fetchTables = async () => {
-  //   try {
-  //     const response = await axios.get("http://localhost:5000/staff/getTables");
-  //     setTables(response.data);
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error("Error fetching tables:", error);
-  //   }
-  // };
-
-  // const {data: dataTables, isLoading: isLoadingDataTables} = useSWR("mesasDisponibles", fetchTables); 
-
-  // if (!dataTables) return [];
-
-  // if (isLoadingDataTables) return <h2 className="text-white text-6xl mx-auto">Cargando</h2>;
-
-
-
-
-  // useEffect(() => {
-  //   fetchTables();
-  // }, []);
 
   const carritoPDFClick = () => {
     setTotal(calculateTotal());
@@ -102,6 +79,12 @@ const MenuOptions = () => {
     "http://localhost:5000/products/getDesserts",
     fetcher
   )
+
+  if (isLoadingDataEntradas || isLoadingDataBebidas || isLoadingDataMainDishes || isLoadingDataDesserts || isLoadingDataTables) {
+    return <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
+  }
+
+
   //carrito de compras
 
   const handleAddToCart = (item) => {
@@ -115,9 +98,11 @@ const MenuOptions = () => {
           ? { ...cartItem, cantidad: cartItem.cantidad + 1 }
           : cartItem
       );
+      alertaProductoAgregadoCarrito(item.nombre);
       setCart(updatedCart);
     } else {
       setCart([...cart, { ...item, cantidad: 1 }]);
+      alertaProductoAgregadoCarrito(item.nombre);
     }
   };
 
@@ -129,11 +114,13 @@ const MenuOptions = () => {
           : cartItem
       );
       setCart(updatedCart);
+      alertaProductoEliminadoCarrito(item.nombre);
     } else {
       const updatedCart = cart.filter(
         (cartItem) => cartItem.id_producto !== item.id_producto
       );
       setCart(updatedCart);
+      alertaProductoEliminadoCarrito(item.nombre);
     }
   };
 
@@ -148,9 +135,6 @@ const MenuOptions = () => {
     setSelectedTable(table);
   };
 
-  if (isLoadingDataEntradas || isLoadingDataBebidas || isLoadingDataMainDishes || isLoadingDataDesserts || isLoadingDataTables) {
-    return <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
-  }
 
 
   const handleSendOrder = async () => {
@@ -160,7 +144,6 @@ const MenuOptions = () => {
       }
 
       if (cart.length === 0) {
-
         return alertaErrorCarritoVacio();
       }
 
@@ -201,11 +184,14 @@ const MenuOptions = () => {
           total: calculateTotal(),
         }
       );
-
       setCart([]);
       setTotal(0);
 
-      alertaPedidoEnviado();
+      // La alerta se muestra después de un pequeño retraso
+      setTimeout(() => {
+        alertaPedidoEnviado();
+      }, 0); 
+
     } catch (error) {
       console.error("Error al enviar el pedido:", error);
       if (error.response) {

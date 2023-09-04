@@ -48,6 +48,7 @@ export const AddCommentForm = () => {
         let espacios = false;
 
         if (mensaje.trim().length === 0) {
+            espacios = true;
            return  Swal.fire({
                 icon: 'error',
                 iconColor: 'red',
