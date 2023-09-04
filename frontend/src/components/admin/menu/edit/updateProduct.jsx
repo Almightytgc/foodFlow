@@ -60,7 +60,7 @@ export const EditProductForm = () => {
             return alertaCamposVaciosEspacios();
         }
 
-        if(precio<0.01 || precio<9999.00  ){
+        if(precio<0.01 || precio>9999.00  ){
             return alertaCifraInvalida()
         }
         
