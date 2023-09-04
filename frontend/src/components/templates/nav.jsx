@@ -54,39 +54,7 @@ export function NavBar() {
     }
   };
 
-    //translate
-    const googleTranslateElementInit = () => {
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: 'en',
-          autoDisplay: false,
-        },
-        'google_translate_element'
-      );
-    };
-  
-    useEffect(() => {
-      const existingScript = document.getElementById('google-translate-api');
-  
-      if (!existingScript) {
-        const script = document.createElement('script');
-        script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-        script.id = 'google-translate-api';
-        script.async = true;
-        document.body.appendChild(script);
-      }
-  
-      window.googleTranslateElementInit = googleTranslateElementInit;
-  
-      return () => {
-        // Clean up the script when the component unmounts
-        if (existingScript) {
-          document.body.removeChild(existingScript);
-        }
-        delete window.googleTranslateElementInit;
-      };
-    }, []);
-
+   
   
   return (
     <>
