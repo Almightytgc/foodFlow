@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 //alerta / notificaciones
-import { alertaAutenticacion, alertaTelefonoInvalido, alertaNombresApellidosInvalidos } from '../alerts';
+import { alertaAutenticacion, alertaTelefonoInvalido, alertaNombresApellidosInvalidos, alertaCamposVaciosEspacios } from '../alerts';
 import Swal from 'sweetalert2';
 
 
