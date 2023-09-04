@@ -289,7 +289,3 @@ export const alertaImagenProducto = (nombreProducto, idImagen, precio) => {
         confirmButtonColor: "#F47228"
     })
 }
-
-
-
-
