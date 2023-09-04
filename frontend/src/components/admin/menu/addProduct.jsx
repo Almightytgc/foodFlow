@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 //imágenes
 
-import { alertaAutenticacion, alertaCamposVacios, alertaProductoCreado } from '../../alerts';
+import { alertaAutenticacion, alertaCamposVaciosEspacios, alertaProductoCreado, alertaCamposVacios} from '../../alerts';
 
 export const AddProductForm = () => {
 
@@ -47,10 +47,18 @@ export const AddProductForm = () => {
         dataForm.append("price", precio);
         dataForm.append("file", foto)
 
-        if (nombre == "" || categoria == "" || precio == "" || foto == "") {
+        if (!nombre == "" || !categoria == "" || !precio == "" || !foto == "") {
             camposVacios = true;
             return alertaCamposVacios();
         }
+
+        
+        if (!nombre.trim().length || !categoria.trim().length || !precio.trim().length) {
+            camposVacios = true;
+            return alertaCamposVaciosEspacios();
+        }
+
+        
 
         if (!camposVacios) {
             try {

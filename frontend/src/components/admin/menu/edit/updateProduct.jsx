@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
 
 //alertas
-import { alertaProductoEditado } from "../../../alerts";
+import { alertaProductoEditado, alertaCamposVacios, alertaCamposVaciosEspacios, alertaCifraInvalida} from "../../../alerts";
 
 export const EditProductForm = () => {
 
@@ -52,7 +52,18 @@ export const EditProductForm = () => {
         if (nombre == "" || categoria == "" || precio == "") {
             camposVacios = true;
             return alertaCamposVacios();
+
         }
+        
+        if (!nombre.trim().length || !categoria.trim().length) {
+            camposVacios = true;
+            return alertaCamposVaciosEspacios();
+        }
+
+        if(precio<0.01 || precio>9999.00  ){
+            return alertaCifraInvalida()
+        }
+        
 
         if (!camposVacios) {
             try {

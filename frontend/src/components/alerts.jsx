@@ -52,6 +52,17 @@ export const alertaCamposVaciosEspacios = () => {
     });
 }
 
+export const alertaCifraInvalida = () => {
+    Swal.fire({ 
+        icon: "error",
+        iconColor: "red",
+        title: "Cifra invalida",
+        text: "Por favor rellena la cifra correctamente",
+        confirmButtonColor: "#249643",
+        color: "##211B16",
+    });
+}
+
 export const alertaNoCoincide = () => {
     Swal.fire({
         icon: 'error',
