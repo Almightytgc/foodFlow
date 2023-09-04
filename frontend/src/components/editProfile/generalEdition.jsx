@@ -6,10 +6,9 @@ import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 //alerta / notificaciones
+import { alertaAutenticacion, alertaTelefonoInvalido, alertaNombresApellidosInvalidos } from '../alerts';
 import Swal from 'sweetalert2';
-//imágenes
 
-import { alertaAutenticacion } from '../alerts';
 
 export const UserGeneralEditionForm = () => {
 
@@ -45,7 +44,7 @@ export const UserGeneralEditionForm = () => {
             rutaGeneral = `/customer/editOptions/${id_usuario}`;
         } else if (staffLoggedStorage) {
             rutaGeneral = `/staff/editOptions/${id_usuario}`;
-        } else if (adminLoggedStorage){
+        } else if (adminLoggedStorage) {
             rutaGeneral = `/admin/editOptions/${id_usuario}`;
         }
         return rutaGeneral;
@@ -87,29 +86,63 @@ export const UserGeneralEditionForm = () => {
     const actualizarUsuario = async (e) => {
         e.preventDefault();
 
-        try {
-            await axios.patch(`http://localhost:5000/users/editProfile/general/${id_usuario}`,
-                {
-                    nombres: names,
-                    apellidos: lastNames,
-                    telefono: phone,
-                    correo: mail,
-                    usuario: user,
-                });
-            //alerta
-            Swal.fire({
-                titleText: `El usuario ha sido actualizado`,
-                confirmButtonColor: "#F47228"
-            });
-            //redireccion
-            navigate(rutaGeneralValidada);
 
-        } catch (error) {
-            console.log(error);
-            if (error.response && error.response.data && error.response.data.msg) {
-                Swal.fire('Error', error.response.data.msg, 'error');
-            } else {
-                Swal.fire('Error', 'Error en el servidor', 'error');
+        let camposIncorrectos = false
+        const telefonoRegex = /^[\d()\s-]+$/;
+        const nombreApellidoRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+
+        //validar el input de teléfono
+        const validarTelefono = (telefono) => {
+            return telefonoRegex.test(telefono);
+        }
+
+        //validar los input de nombre y apellido
+        const validarNombreApellido = (nombreApellido) => {
+            return nombreApellidoRegex.test(nombreApellido);
+        };
+
+
+
+        if (!names.trim().length || !lastNames.trim().length || !phone.trim().length || !mail.trim().length || !user.trim().length) {
+            camposIncorrectos = true;
+            return alertaCamposVaciosEspacios();
+        }
+
+        if (!validarTelefono(phone)) {
+            camposIncorrectos = true;
+            return alertaTelefonoInvalido()
+        }
+
+        if (!validarNombreApellido(names) || !validarNombreApellido(lastNames)) {
+            camposIncorrectos = true;
+            return alertaNombresApellidosInvalidos();
+        }
+
+        if (!camposIncorrectos) {
+            try {
+                await axios.patch(`http://localhost:5000/users/editProfile/general/${id_usuario}`,
+                    {
+                        nombres: names,
+                        apellidos: lastNames,
+                        telefono: phone,
+                        correo: mail,
+                        usuario: user,
+                    });
+                //alerta
+                Swal.fire({
+                    titleText: `El usuario ha sido actualizado`,
+                    confirmButtonColor: "#F47228"
+                });
+                //redireccion
+                navigate(rutaGeneralValidada);
+
+            } catch (error) {
+                console.log(error);
+                if (error.response && error.response.data && error.response.data.msg) {
+                    Swal.fire('Error', error.response.data.msg, 'error');
+                } else {
+                    Swal.fire('Error', 'Error en el servidor', 'error');
+                }
             }
         }
 

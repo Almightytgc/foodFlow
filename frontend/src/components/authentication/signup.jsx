@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 //imágenes
 import signupImg from "../../assets/general/signupImg.jpg"
 
-import { alertaNoCoincide, alertaCamposVacios, alertaTelefonoInvalido, alertaNombresApellidosInvalidos, alertaRegistroExitoso } from '../alerts';
+import { alertaNoCoincide, alertaCamposVacios, alertaTelefonoInvalido, alertaNombresApellidosInvalidos, alertaCamposVaciosEspacios, alertaRegistroExitoso } from '../alerts';
 
 
 
@@ -63,6 +63,9 @@ export const SignUpForm = () => {
 
     } else if (!validarNombreApellido(names) || !validarNombreApellido(lastNames)) {
       return alertaNombresApellidosInvalidos();
+    } else if(!names.trim().length|| !lastNames.trim().length || !user.trim().length || !passWord.trim().length || !confirmPassword.trim().length ){
+      camposVacios = true;
+      return alertaCamposVaciosEspacios();
     }
 
     if (!camposVacios && !contraseniaDistinta) {
