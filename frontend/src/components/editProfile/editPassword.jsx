@@ -7,6 +7,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 //alerta / notificaciones
 import { alertaCamposVaciosEspacios, alertaPasswordsNoCoinciden} from '../alerts'
+
+import Swal from 'sweetalert2';
 //imágenes
 
 
