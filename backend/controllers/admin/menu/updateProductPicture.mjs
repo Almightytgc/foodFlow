@@ -22,9 +22,8 @@ const uploadHandler = async (req, res) => {
   const idProducto = parseInt(req.params.id_producto);
   const { filename } = req.file;
 
-
-  console.log(req.file);
-  console.log(req.body);
+  // console.log(req.file);
+  // console.log(req.body);
 
   const rutaProducto = `/producto/${filename}`;
 
@@ -37,9 +36,9 @@ const uploadHandler = async (req, res) => {
       }
     });
 
-    if (!actualizarImagenProducto) {
-      return console.error("no se envió nada a prisma we");
-    }
+    // if (!actualizarImagenProducto) {
+    //   return console.error("no se envió nada a prisma we");
+    // }
   } catch (error) {
     return console.error(error);
   }
@@ -48,7 +47,7 @@ const uploadHandler = async (req, res) => {
 export const uploadProductPicture = (req, res) => {
   upload.single("file")(req, res, (error) => {
     if (error) {
-      console.error(error);
+      // console.error(error);
       return res.status(500).json({ msg: "no furuló" });
     }
 

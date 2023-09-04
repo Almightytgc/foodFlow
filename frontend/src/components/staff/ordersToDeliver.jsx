@@ -23,9 +23,9 @@ export const OrdersToDeliver = () => {
         `http://localhost:5000/staff/orderDelivered/${idOrden}`
       );
       mutate("ordenesPendientes");
-      if (response) {
-        return console.log("Orden marcada como entregada exitosamente");
-      }
+      // if (response) {
+      //   return console.log("Orden marcada como entregada exitosamente");
+      // }
     } catch (error) {
       console.error(error);
     }
@@ -92,7 +92,8 @@ export const OrdersToDeliver = () => {
             </thead>
 
             <tbody>
-              {data.map((orden, index) => {
+              { data && typeof data == 'object' && data.length ? data.map((orden, index) => 
+              {
                 return (
                   <tr key={orden.id_orden} className="text-center">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium bg-[#1C1C1C] text-[#F0F0F0]">
@@ -117,7 +118,7 @@ export const OrdersToDeliver = () => {
                     </td>
                   </tr>
                 );
-              })}
+              }): (<h2 className="text-white text-3xl text-center"></h2>)}
             </tbody>
           </table>
         </div>

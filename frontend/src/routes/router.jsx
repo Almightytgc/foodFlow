@@ -157,7 +157,7 @@ export const PagesRouter = createBrowserRouter([
   {
     path: "/staff",
     element: <RootLogged />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         path: "/staff",

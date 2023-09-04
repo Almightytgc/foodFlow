@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export const updateGeneralInformation = async(req,res)=>{
     const { nombres, apellidos, telefono, correo, usuario} = req.body;
-    console.log(req.body);
+    // console.log(req.body);
 
     const idUsuario = parseInt(req.params.id_usuario, 10);
   

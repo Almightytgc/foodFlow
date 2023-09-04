@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 export const logIn = async (req, res) => {
   const { usuario, contrasenia } = req.body;
 
-
     // Verificar si existe un usuario con el nombre de usuario proporcionado
     const existingUser = await prisma.usuarios.findFirst({
       where: {
@@ -16,8 +15,7 @@ export const logIn = async (req, res) => {
     });
 
     if (!existingUser) {
-      res.status(400).json({ msg: "El usuario no existe" });
-      return console.log("usuario no encontrado")
+      return res.status(400).json({ msg: "El usuario no existe" });
     }
 
     // Verificar si la contraseña es correcta

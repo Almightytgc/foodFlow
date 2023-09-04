@@ -24,7 +24,7 @@ export const deleteProduct = async (req, res) => {
   const eliminarFotoProducto = async (filePath) => {
     try {
       await fs.unlink(filePath);
-      console.log("Foto borrada exitosamente");
+      // console.log("Foto borrada exitosamente");
     } catch (error) {
       return console.log("Error al eliminar el archivo", error);
     }
@@ -40,11 +40,11 @@ export const deleteProduct = async (req, res) => {
       where: {id_producto: findProductName.id_producto,}
     });
 
-    console.log("El producto y la foto se borraron exitosamente");
+    // console.log("El producto y la foto se borraron exitosamente");
     return res.status(200).json({ msg: "El producto y la foto se borraron exitosamente" });
 
   } catch (error) {
-    console.error("Error al borrar el producto o la foto:", error);
+    // console.error("Error al borrar el producto o la foto:", error);
     return res.status(500).json({ msg: "Hubo un error al borrar el producto o la foto" });
   }
 };

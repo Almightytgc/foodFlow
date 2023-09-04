@@ -20,15 +20,15 @@ const io = new Server(serverSocket);
 
 
 io.on("connection", (socket) => {
-    console.log("un usuario se ha conectado waaaa");
+    // console.log("un usuario se ha conectado waaaa");
 
     socket.on("solicitudAtencion", (data)=> {
-        console.log("mensaje: ", data);
+        // console.log("mensaje: ", data);
         io.emit("mensajeAtencionStaff", data);
     })
 
     socket.on("disconnect", () => {
-        console.log("un usuario se desconectó");
+        // console.log("un usuario se desconectó");
     })
 })
 

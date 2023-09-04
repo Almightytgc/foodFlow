@@ -9,9 +9,6 @@ export const ErrorPage = () => {
     const awaRefrescar = ()=>{
         navigate("/")
         window.location.reload()
-        
-        
-
     }
 
     return (

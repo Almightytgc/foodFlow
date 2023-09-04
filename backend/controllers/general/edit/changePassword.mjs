@@ -8,8 +8,8 @@ export const changeUserPassword = async (req, res) => {
 
   const idUsuario = parseInt(req.params.id_usuario, 10);
 
-  console.log(req.body);
-  console.log(idUsuario);
+  // console.log(req.body);
+  // console.log(idUsuario);
 
   const existingUser = await prisma.usuarios.findFirst({
     where: {
@@ -18,24 +18,19 @@ export const changeUserPassword = async (req, res) => {
   });
 
   if (!existingUser) {
-    console.log("el usuario no fue encontrado aaa");
+    // console.log("el usuario no fue encontrado aaa");
     return res.status(404).json({ msg: "el usuario no fue encontrado" });
-  } else {
-    console.log("usuario encontrado");
-  }
-
+  } 
   const verifyPassword = await bcrypt.compare(contrasenia, existingUser.contrasenia);
 
   if (!verifyPassword) {
-    console.log("la contraseña ingresada no coincide con la guardada");
+    // console.log("la contraseña ingresada no coincide con la guardada");
     return res.status(404).json({msg: "la contraseña ingresada no coincide con la guardada"});
-  } else {
-    console.log("la contraseña ingresada coincide con la guardada");  
   }
 
   const newHashedPassword = await bcrypt.hash(newContrasenia, 10);
 
-    console.log("Hasta aquí todo en orden");
+    // console.log("Hasta aquí todo en orden");
 
     const updatePassword = await prisma.usuarios.update({
       where: {
@@ -46,13 +41,17 @@ export const changeUserPassword = async (req, res) => {
       },
     });
 
-    if (updatePassword) {
-      console.log(
-        "La contraseña ha sido reestablecida correctamente, la nueva contraseña es  " + newHashedPassword
-      );
-    } else {
-      console.log("Algo salió mal");
-      return res.status(500).json({ msg: "Hubo un error en el servidor" });
-    }
+    if (!updatePassword) return res.status(500).json({ msg: "Hubo un error en el servidor" });
+
     res.status(200).json({ msg: "La contraseña ha sido reestablecida exitosamente" });
+
+
+    // if (updatePassword) {
+    //   console.log(
+    //     "La contraseña ha sido reestablecida correctamente, la nueva contraseña es  " + newHashedPassword
+    //   );
+    // } else {
+    //   console.log("Algo salió mal");
+    //   return res.status(500).json({ msg: "Hubo un error en el servidor" });
+    // }
 };

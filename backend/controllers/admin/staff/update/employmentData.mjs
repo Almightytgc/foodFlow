@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export const updateEmploymentData = async (req, res) => {
   const { salario, rol } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
 
   const idUsuario = parseInt(req.params.id_usuario, 10);
 

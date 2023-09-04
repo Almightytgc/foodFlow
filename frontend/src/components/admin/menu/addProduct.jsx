@@ -63,7 +63,7 @@ export const AddProductForm = () => {
         if (!camposVacios) {
             try {
                 const response = await axios.post("http://localhost:5000/admin/products/upload", dataForm)
-                console.log(response);
+                // console.log(response);
                 alertaProductoCreado();
                 navigate("/admin/productsOptions")
             } catch (error) {

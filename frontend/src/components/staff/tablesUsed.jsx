@@ -3,6 +3,7 @@ import axios from "axios";
 
 export const TablesUsed = () => {
 
+    let isSetDataTables = false;
     const { mutate } = useSWRConfig();
 
     const fetcher = async () => {
@@ -14,13 +15,14 @@ export const TablesUsed = () => {
     const { data, isLoading: tablesLoading, error } = useSwr("mesas", fetcher);
 
     if (!data) {
-        <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
-         return [];
+        return <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
     }
 
-    if (tablesLoading) return <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
+    if (data) isSetDataTables = true;
 
-    if (error) <p className="text-3xl text-white text-center">{error.response.data.message}</p>
+    if (tablesLoading) return <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
+    console.log(error)
+    if (error) <p className="text-3xl text-white text-center">"Hubo un error"</p>
 
 
     const cambiarEstadoMesa = async (id_mesa) => {
@@ -31,7 +33,7 @@ export const TablesUsed = () => {
             console.error(error);
         }
     }
-
+    console.log(data);
     return (
         <>
             <div className="md:w-4/3 px-16 flex flex-col justify-start items-start">
@@ -54,7 +56,7 @@ export const TablesUsed = () => {
                     </thead>
 
                     <tbody className="text-center">
-                        {data.map((mesa, index) => {
+                        {data && typeof data == 'object' && data.length ? (data.map((mesa, index) => {
                             return (
                                 <tr key={mesa.id_mesa} className="text-center">
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium bg-[#1C1C1C] text-[#F0F0F0]">{index + 1}</td>
@@ -69,7 +71,26 @@ export const TablesUsed = () => {
                                     </td>
                                 </tr>
                             );
-                        })}
+                        })) : (<h2 className="text-white text-2xl mx-auto"></h2>)}
+
+
+
+                        {/* {data.map((mesa, index) => {
+                            return (
+                                <tr key={mesa.id_mesa} className="text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium bg-[#1C1C1C] text-[#F0F0F0]">{index + 1}</td>
+                                    <td className="text-sm bg-[#1C1C1C] text-[#F0F0F0] font-light px-6 py-4 whitespace-nowrap">{mesa.token}</td>
+                                    <td className="text-sm bg-[#1C1C1C] text-[#F0F0F0] font-light px-6 py-4 whitespace-nowrap">{mesa.usuario.nombres}</td>
+                                    <td className="text-sm bg-[#1C1C1C] text-[#F0F0F0] font-light px-6 py-4 whitespace-nowrap">
+                                        <button onClick={() => cambiarEstadoMesa(mesa.id_mesa)} className="bg-[#F47228] text-white text-center hover:text-[#000] hover:bg-[#fff] duration-300 rounded-lg p-2 font-bold w-full">
+                                            <span className="font-bold">
+                                                Marcar como desocupada
+                                            </span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })} */}
                     </tbody>
                 </table>
             </div>

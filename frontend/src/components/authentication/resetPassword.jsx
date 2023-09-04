@@ -39,7 +39,7 @@ export const ResetPasswordForm = () => {
             return alertaNoCoincide();
         }
 
-        if(!newPassword.trim().length || !confirmPassword.trim().lenght){
+        if(!newPassword.trim().length === 0 || !confirmPassword.trim().lenght === 0){
             camposVacios = true;
             return alertaCamposVaciosEspacios();
         }

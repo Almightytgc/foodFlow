@@ -67,7 +67,7 @@ export const UserGeneralEditionForm = () => {
         const obtenerDatos = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/users/getUserById/${id_usuario}`);
-                console.log(response);
+                // console.log(response);
 
                 setNombres(response.data.nombres);
                 setApellidos(response.data.apellidos);

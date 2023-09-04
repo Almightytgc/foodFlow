@@ -4,7 +4,7 @@
 
     export const changeTableState = async (req, res) => {
         const idMesa = parseInt(req.params.id_mesa);
-        console.log(idMesa);
+        // console.log(idMesa);
         try {
             const cambiarEstado = await prisma.mesas.update({
                 where: {id_mesa: idMesa},

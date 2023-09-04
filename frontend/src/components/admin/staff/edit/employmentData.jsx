@@ -42,7 +42,7 @@ export const EmploymentDataEditionForm = () => {
         const obtenerID = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/users/getUserById/${id_usuario}`);
-                console.log(response);
+                // console.log(response);
 
                 setSalario(response.data.salario);
                 setCargo(response.data.fk_rol);

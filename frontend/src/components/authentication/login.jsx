@@ -42,11 +42,11 @@ export const LoginForm = () => {
             contrasenia: passWord
           });
         alertaBienvenida(user);
-        console.log(response.data);
+        // console.log(response.data);
 
         //obtener el id del usuario
         const id_usuario_storage = response.data.id_usuario;
-        console.log("el id atrapado es ", id_usuario_storage);
+        // console.log("el id atrapado es ", id_usuario_storage);
         //guardar en localStorage 
         localStorage.setItem("id_usuario", id_usuario_storage);
 

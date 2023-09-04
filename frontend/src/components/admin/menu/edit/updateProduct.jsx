@@ -73,7 +73,7 @@ export const EditProductForm = () => {
                         category: categoria,
                         price: precio
                     })
-                console.log(response);
+                // console.log(response);
                 alertaProductoEditado();
                 navigate("/admin/productsOptions")
             } catch (error) {

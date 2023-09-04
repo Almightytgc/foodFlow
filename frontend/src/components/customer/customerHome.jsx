@@ -13,18 +13,29 @@ import { alertaAutenticacion, alertaErrorSolicitudAtencion, alertaAtencionSolici
 
 //importar io para notificaciones 
 import io from "socket.io-client";
-console.log("Creando instancia de socket");
+// console.log("Creando instancia de socket");
 
 const socket = io("http://localhost:5000", { transports: ["websocket", "polling"] });
 
 socket.on("connect", () => {
-    console.log("Conexión exitosa a socket desde customer home");
+    // console.log("Conexión exitosa a socket desde customer home");
 });
 
 export const CustomerIndex = () => {
     const [id_usuario, setIdUsuario] = useState();
     const navigate = useNavigate();
     const userLoggedStorage = localStorage.getItem("userLogged");
+
+
+
+    useEffect(() => {
+        //set id de usuario
+        const id_usuarioLocal = localStorage.getItem('id_usuario');
+        setIdUsuario(id_usuarioLocal);
+        // console.log(id_usuario);
+    }, []);
+
+    // const {mutate} = useSWRConfig();
 
     //proteger la ruta
     useEffect(() => {
@@ -40,11 +51,7 @@ export const CustomerIndex = () => {
     }, []);
 
     //obtener id del usuario
-    useEffect(() => {
-        //set id de usuario
-        const id_usuarioLocal = localStorage.getItem('id_usuario');
-        setIdUsuario(id_usuarioLocal);
-    }, []);
+
 
     const configurarMesa = () => {
         return navigate("setTable");
@@ -52,11 +59,11 @@ export const CustomerIndex = () => {
 
     const fetcher = async () => {
         const { data } = await axios.get(`http://localhost:5000/users/getTableById/${id_usuario}`);
-        console.log(data);
+        // console.log(data);
         return data;
     }
 
-    const { data, error, isLoading, isValidating } = useSWR("mesas", fetcher, { refreshInterval: 1000 });
+    const { data, error, isLoading, isValidating } = useSWR("mesas", fetcher, { refreshInterval: 100 });
 
 
     if (!data) return <p className="text-3xl text-white mx-auto">Cargando . . . </p>;
@@ -68,12 +75,14 @@ export const CustomerIndex = () => {
     if (data.message) return <p className="text-3xl text-white">{data.message}</p>;
 
 
-    const solicitarAtencion = () => {
+    const solicitarAtencion = async () => {
+            // await mutate("mesas");
+            // console.log(data.fk_usuario)
         if (data.fk_usuario === null) {
             alertaErrorSolicitudAtencion();
             return navigate("setTable");
         } else {
-            console.log(data.token);
+            // console.log(data.token);
             socket.emit("solicitudAtencion", `Se necesita atención en la mesa ${data.token}`);
             return alertaAtencionSolicitada();
         }

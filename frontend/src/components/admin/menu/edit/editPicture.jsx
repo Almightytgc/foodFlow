@@ -58,7 +58,7 @@ export const EditProductPictureForm = () => {
             try {
                 const response = await axios.patch(`http://localhost:5000/admin/products/editProductPicture/${id_producto}`, formData);
 
-                console.log(response);
+                // console.log(response);
 
                 alertaProductoEditado();
                 navigate("/admin/productsOptions")

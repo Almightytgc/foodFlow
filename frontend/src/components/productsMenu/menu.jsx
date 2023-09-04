@@ -131,7 +131,7 @@ const MenuOptions = () => {
 
   // Función para tomar orden de una mesa
   const handleTakeOrder = (table) => {
-    console.log(table); // Verifica si la información de la mesa es correcta
+    // console.log(table); // Verifica si la información de la mesa es correcta
     setSelectedTable(table);
   };
 
@@ -174,7 +174,7 @@ const MenuOptions = () => {
         })
         .filter((producto) => producto !== null);
 
-      console.log("Datos del arreglo de productos:", productos);
+      // console.log("Datos del arreglo de productos:", productos);
 
       const response = await axios.post(
         "http://localhost:5000/staff/sendOrder",

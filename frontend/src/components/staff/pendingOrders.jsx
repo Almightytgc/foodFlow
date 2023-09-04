@@ -16,7 +16,7 @@ export const PendingOrders = () => {
 
     // Obtener el valor de staffLogged y comprobar la autenticación
     const staffLoggedValue = loadStaffLoggedValue();
-    console.log("El mesero está ", staffLoggedValue);
+    // console.log("El mesero está ", staffLoggedValue);
 
     if (!staffLoggedValue) {
       // Redirigir a la página de autenticación si el usuario no está autenticado

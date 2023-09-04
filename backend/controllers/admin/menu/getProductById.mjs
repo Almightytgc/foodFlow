@@ -13,7 +13,7 @@ export const getProductById = async (req, res) => {
     if (findProduct) {
         return res.status(200).json(findProduct);
     } else {
-        console.log("no se encontró el producto");
+        // console.log("no se encontró el producto");
         return res.status(500).json({msg: "algo salió mal en la solicitud"});
     }
 }

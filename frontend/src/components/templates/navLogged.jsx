@@ -17,7 +17,7 @@ const socket = io("http://localhost:5000", { transports: ["websocket", "polling"
 
 
 socket.on("connect", () => {
-  console.log("Conexión exitosa a socket desde staff home");
+  // console.log("Conexión exitosa a socket desde staff home");
 });
 
 //navbar
@@ -48,13 +48,13 @@ export function NavBarLogged() {
     setIdUsuario(idUsuario);
 
     socket.on("connect", () => {
-      console.log("Conexión exitosa a socket desde staff home");
+      // console.log("Conexión exitosa a socket desde staff home");
     });
   }, []);
 
   const fetcher = async () => {
     const response = await axios.get(`http://localhost:5000/users/getUserById/${id_usuario}`);
-    console.log(response.data)
+    // console.log(response.data)
     return response.data;
   };
 

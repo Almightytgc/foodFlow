@@ -7,7 +7,7 @@ export const editProfile = async(req,res)=>{
     const { nombres, apellidos, telefono, correo, usuario, contrasenia, securityQuestion } = req.body;
     let {securityAnswer} = req.body;
     
-    console.log(req.body);
+    // console.log(req.body);
     //obtener de la url el usuario y convertirlo de string a entero
     const idUsuario = parseInt(req.params.id_usuario, 10);
     console.log(idUsuario);

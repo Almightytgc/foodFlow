@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export const createEmployees = async (req, res) => {
   const { nombres, apellidos, telefono, correo, usuario, contrasenia, salario, rol} = req.body;
-  console.log(req.body);
+  // console.log(req.body);
 
   // Verificar si ya existe un usuario con el mismo nombre de usuario
   const usuarioExistente = await prisma.usuarios.findFirst({

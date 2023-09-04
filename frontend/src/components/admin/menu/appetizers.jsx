@@ -38,7 +38,7 @@ export const TablaEntradas = () => {
     const { data } = useSWR("Entradas", fetcher);
     mutate("Entradas");
 
-    console.log(data);
+    // console.log(data);
     //verificar si se encontraron registros en la base de datos
     if (!data) {
         return <h2 className="text-white text-6xl">Cargando...</h2>;

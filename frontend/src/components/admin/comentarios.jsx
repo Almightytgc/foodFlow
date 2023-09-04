@@ -36,7 +36,7 @@ export const Comentarios = () => {
     const { data } = useSWR('sugerencia', fetcher, { refreshInterval: 1000 })
 
 
-    console.log(data);
+    // console.log(data);
     if (!data) {
         return <h2 className="text-white text-6xl">Cargando...</h2>;
     } else if (data == "") {

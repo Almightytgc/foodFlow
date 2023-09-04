@@ -12,7 +12,7 @@ import io from "socket.io-client";
 const socket = io("http://localhost:5000", { transports: ["websocket", "polling"] });
 
 socket.on("connect", () => {
-    console.log("Conexión exitosa a socket desde staff home");
+    // console.log("Conexión exitosa a socket desde staff home");
 });
 
 
@@ -32,7 +32,7 @@ export const StaffIndex = () => {
         };
 
         const staffLoggedValue = loadStaffLoggedValue();
-        console.log("el mesero está ", staffLoggedValue);
+        // console.log("el mesero está ", staffLoggedValue);
         if (!staffLoggedValue) {
             // Verificar si protegerStaff es false (no autorizado)
             navigate("/authentication");

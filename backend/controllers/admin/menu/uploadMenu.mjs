@@ -23,8 +23,8 @@ const uploadHandler = async (req, res) => {
 
   const precioParseado = parseFloat(price);
 
-  console.log(req.file);
-  console.log(req.body);
+  // console.log(req.file);
+  // console.log(req.body);
 
   const rutaProducto = `/producto/${filename}`;
 
@@ -38,9 +38,9 @@ const uploadHandler = async (req, res) => {
       },
     });
 
-    if (!crearImagenProducto) {
-      return console.error("no se envió nada a prisma we");
-    }
+    // if (!crearImagenProducto) {
+    //   return console.error("no se envió nada a prisma we");
+    // }
   } catch (error) {
     return console.error(error);
   }
