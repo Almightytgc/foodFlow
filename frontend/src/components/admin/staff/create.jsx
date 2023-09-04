@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 //alerta / notificaciones
 import Swal from 'sweetalert2';
-import { alertaAutenticacion, alertaCamposVaciosEspacios, alertaCifraInvalida } from '../../alerts';
+import { alertaAutenticacion, alertaCamposVaciosEspacios, alertaCifraInvalida, alertaNombresApellidosInvalidos,  } from '../../alerts';
 
 export const CreateEmployeesForm = () => {
 
@@ -32,16 +32,16 @@ export const CreateEmployeesForm = () => {
   const adminLoggedStorage = localStorage.getItem("adminLogged");
 
   useEffect(() => {
-      const loadAdminLoggedValue = () => {
-          return adminLoggedStorage ? JSON.parse(adminLoggedStorage) : false;
-      };
+    const loadAdminLoggedValue = () => {
+      return adminLoggedStorage ? JSON.parse(adminLoggedStorage) : false;
+    };
 
-      const adminLoggedValue = loadAdminLoggedValue();
-      // console.log("el admin está ", adminLoggedValue);
-      if (!adminLoggedValue) {
-          navigate("/authentication");
-          return alertaAutenticacion();
-      }
+    const adminLoggedValue = loadAdminLoggedValue();
+    // console.log("el admin está ", adminLoggedValue);
+    if (!adminLoggedValue) {
+      navigate("/authentication");
+      return alertaAutenticacion();
+    }
   }, []);
 
 
@@ -49,15 +49,40 @@ export const CreateEmployeesForm = () => {
   const registrarUsuario = async (e) => {
     e.preventDefault();
 
-    if (!names.trim().length|| !lastNames.trim().length|| !phone.trim().length|| !mail.trim().length|| !user.trim().length || !passWord.trim().length|| !salario.trim().length || !cargo.trim().length) {
+    //validar el input de teléfono
+    const validarTelefono = (telefono) => {
+      return telefonoRegex.test(telefono);
+    }
+
+    //validar los input de nombre y apellido
+    const validarNombreApellido = (nombreApellido) => {
+      return nombreApellidoRegex.test(nombreApellido);
+    };
+
+    //validar que se escriba un nombre / apellido sin números
+    const nombreApellidoRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+    const [phone, setTelefono] = useState("");
+    //verificar que solo se pongan números
+    const telefonoRegex = /^[\d()\s-]+$/;
+
+    if (!names.trim().length || !lastNames.trim().length || !phone.trim().length || !mail.trim().length || !user.trim().length || !passWord.trim().length || !salario.trim().length || !cargo.trim().length) {
       camposVacios = true;
       return alertaCamposVaciosEspacios()
     }
 
 
-    if(salario<1){
+    if (salario < 1) {
       camposVacios = true
       return alertaCifraInvalida();
+    }
+
+    if (!validarNombreApellido(names) || !validarNombreApellido(lastNames)) {
+      return alertaNombresApellidosInvalidos();
+    }
+
+    if (!validarTelefono(phone)) {
+      return alertaTelefonoInvalido();
+
     }
     if (!camposVacios) {
       try {
