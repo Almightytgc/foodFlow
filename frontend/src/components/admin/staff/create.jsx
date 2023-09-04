@@ -61,7 +61,6 @@ export const CreateEmployeesForm = () => {
 
     //validar que se escriba un nombre / apellido sin números
     const nombreApellidoRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
-    const [phone, setTelefono] = useState("");
     //verificar que solo se pongan números
     const telefonoRegex = /^[\d()\s-]+$/;
 
