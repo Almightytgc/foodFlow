@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 //imágenes
 import loginImg from "../../assets/general/loginImg.jpg"
 
-import { alertaCamposVacios, alertaContraseniaCambiada, alertaNoCoincide } from '../alerts';
+import { alertaCamposVacios, alertaContraseniaCambiada, alertaNoCoincide, alertaCamposVaciosEspacios } from '../alerts';
 
 export const ResetPasswordForm = () => {
 
@@ -37,6 +37,11 @@ export const ResetPasswordForm = () => {
         } else if (newPassword != confirmPassword) {
             contraseniaDistinta = true;
             return alertaNoCoincide();
+        }
+
+        if(!newPassword.trim().length || !confirmPassword.trim().lenght){
+            camposVacios = true;
+            return alertaCamposVaciosEspacios();
         }
 
         if (!camposVacios) {

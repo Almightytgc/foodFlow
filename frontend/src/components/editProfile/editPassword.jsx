@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 //alerta / notificaciones
-import Swal from 'sweetalert2';
+import { alertaCamposVaciosEspacios, alertaPasswordsNoCoinciden} from '../alerts'
 //imágenes
 
 
@@ -52,24 +52,12 @@ export const UserPasswordEditionForm = () => {
 
         if (newPassWord != confirmPassword) {
             contraseniaDistinta = true;
-            Swal.fire({
-                icon: 'error',
-                iconColor: 'red',
-                title: 'Las cotraseñas no coinciden',
-                text: 'Por favor intenta de nuevo',
-                confirmButtonColor: '#249643',
-                color: '##211B16'
-            })
-        } else if (passWord == "" || newPassWord == "" || confirmPassword == "") {
+            return alertaPasswordsNoCoinciden()
+            
+
+        } else if (!passWord.trim().length || !newPassWord.trim().length|| !confirmPassword.trim().length) {
             camposVacios = true;
-            return Swal.fire({
-                icon: 'error',
-                iconColor: 'red',
-                title: 'Campos vacíos',
-                text: 'Por favor rellena todos los campos',
-                confirmButtonColor: '#249643',
-                color: '##211B16'
-            })
+            return alertaCamposVaciosEspacios();
         }
 
         if (!contraseniaDistinta && !camposVacios) {

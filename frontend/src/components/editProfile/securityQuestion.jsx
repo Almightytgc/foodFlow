@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 //alerta / notificaciones
+import { alertaCamposVaciosEspacios } from '../alerts';
 import Swal from 'sweetalert2';
 //imágenes
 
@@ -48,16 +49,9 @@ export const SecurityQuestionForm = () => {
 
         let camposVacios = false;
 
-        if (passWord == "" || securityQuestion == "" || securityAnswer == "") {
+        if (!passWord.trim().length || !securityQuestion.trim().length || !securityAnswer.trim().length) {
             camposVacios = true;
-            return Swal.fire({
-                icon: 'error',
-                iconColor: 'red',
-                title: 'Campos vacíos',
-                text: 'Por favor rellena todos los campos',
-                confirmButtonColor: '#249643',
-                color: '##211B16'
-            })
+            return alertaCamposVaciosEspacios();
         }
 
         if (!camposVacios) {

@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 //imágenes
 
-import { alertaAutenticacion } from '../alerts';
+import { alertaAutenticacion, alertaCamposVaciosEspacios } from '../alerts';
 
 
 export const AddCommentForm = () => {
@@ -45,7 +45,6 @@ export const AddCommentForm = () => {
         //parseo del id del usuario
         const id_parseado = parseInt(id_usuario);
         let mensajeVacio = false;
-        let espacios = false;
 
         if (mensaje.trim().length === 0) {
             espacios = true;
@@ -61,17 +60,11 @@ export const AddCommentForm = () => {
 
         if (mensaje == "") {
             mensajeVacio = true;
-            Swal.fire({
-                icon: 'error',
-                iconColor: 'red',
-                title: 'Campo vacío',
-                text: 'Por favor ingresa un mensaje',
-                confirmButtonColor: '#249643',
-                color: '##211B16'
-            })
+           return alertaCamposVaciosEspacios()
+           
         }
 
-        if (!mensajeVacio && !espacios) {
+        if (!mensajeVacio) {
             try {
                 await axios.post(`http://localhost:5000/customer/addComment`,
                     {

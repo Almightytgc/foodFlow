@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from "axios";
 //hipervinculos / redireccionar
 import { Link, useNavigate } from 'react-router-dom';
-import { alertaBienvenida, credencialesIncorrectas, alertaCamposVacios } from '../alerts';
+import { alertaBienvenida, credencialesIncorrectas, alertaCamposVacios, alertaCamposVaciosEspacios } from '../alerts';
 
 //imágenes
 import loginImg from "../../assets/general/loginImg.jpg"
@@ -23,8 +23,16 @@ export const LoginForm = () => {
 
     if (user == "" || passWord == "") {
       camposVacios = true;
-      alertaCamposVacios();
+     return alertaCamposVacios();
     }
+
+    if(!user.trim().length || !passWord.trim().length){
+      camposVacios = true;
+      return alertaCamposVaciosEspacios();
+    }
+
+
+
 
     if (!camposVacios) {
       try {

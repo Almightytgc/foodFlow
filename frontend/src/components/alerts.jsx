@@ -35,7 +35,18 @@ export const alertaCamposVacios = () => {
         icon: "error",
         iconColor: "red",
         title: "Campos vacíos",
-        text: "Por favor rellena todo los campos solicitados",
+        text: "Por favor rellena todos los campos solicitados",
+        confirmButtonColor: "#249643",
+        color: "##211B16",
+    });
+}
+
+export const alertaCamposVaciosEspacios = () => {
+    Swal.fire({ 
+        icon: "error",
+        iconColor: "red",
+        title: "Campos vacíos",
+        text: "Por favor rellena todos los campos solicitados con carácteres válidos",
         confirmButtonColor: "#249643",
         color: "##211B16",
     });
@@ -49,6 +60,17 @@ export const alertaNoCoincide = () => {
         confirmButtonColor: "#F47228",
         text: "Usuario o contraseña incorrectos"
     });
+}
+
+export const alertaPasswordsNoCoinciden = () =>{
+    Swal.fire({
+        icon: 'error',
+        iconColor: 'red',
+        title: 'Las cotraseñas no coinciden',
+        text: 'Por favor intenta de nuevo',
+        confirmButtonColor: '#249643',
+        color: '##211B16'
+    })
 }
 
 export const alertaNombresApellidosInvalidos = () => {
@@ -267,6 +289,7 @@ export const alertaImagenProducto = (nombreProducto, idImagen, precio) => {
         confirmButtonColor: "#F47228"
     })
 }
+
 
 
 
