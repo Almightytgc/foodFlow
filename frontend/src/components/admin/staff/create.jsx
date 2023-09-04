@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 //alerta / notificaciones
 import Swal from 'sweetalert2';
-import { alertaAutenticacion } from '../../alerts';
+import { alertaAutenticacion, alertaCamposVaciosEspacios, alertaCifraInvalida } from '../../alerts';
 
 export const CreateEmployeesForm = () => {
 
@@ -49,16 +49,15 @@ export const CreateEmployeesForm = () => {
   const registrarUsuario = async (e) => {
     e.preventDefault();
 
-    if (names == "" || lastNames == "" || phone == "" || mail == "" || user == "" || passWord == "" || salario == "" || cargo == "") {
+    if (!names.trim().length|| !lastNames.trim().length|| !phone.trim().length|| !mail.trim().length|| !user.trim().length || !passWord.trim().length|| !salario.trim().length || !cargo.trim().length) {
       camposVacios = true;
-      Swal.fire({
-        icon: 'error',
-        iconColor: 'red',
-        title: 'Campos vacíos',
-        text: 'Por favor rellena todos los campos obligatorios',
-        confirmButtonColor: '#249643',
-        color: '##211B16'
-      })
+      return alertaCamposVaciosEspacios()
+    }
+
+
+    if(salario<1){
+      camposVacios = true
+      return alertaCifraInvalida();
     }
     if (!camposVacios) {
       try {

@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 //imágenes
 
-import { alertaAutenticacion } from '../../../alerts';
+import { alertaAutenticacion, alertaCamposVaciosEspacios, alertaCifraInvalida} from '../../../alerts';
 
 export const EmploymentDataEditionForm = () => {
 
@@ -58,29 +58,45 @@ export const EmploymentDataEditionForm = () => {
     const actualizarUsuario = async (e) => {
         e.preventDefault();
 
-            try {
-                await axios.patch(`http://localhost:5000/admin/Employees/editOptions/employmentData/${id_usuario}`,
-                    {
-                        salario: salarioFloat,
-                        rol:  cargoInt
-                    });
-                //alerta
-                Swal.fire({
-                    titleText: `Los datos han sido actualizados`,
-                    confirmButtonColor: "#F47228"
-                });
-                //redireccion
-                navigate('/admin/Employees');
+        let camposVacios = false;
 
-            } catch (error) {
-                console.log(error);
-                if (error.response && error.response.data && error.response.data.msg) {
-                    Swal.fire('Error', error.response.data.msg, 'error');
-                } else {
-                    Swal.fire('Error', 'Error en el servidor', 'error');
-                }
+        if(!salario.trim().length){
+            camposVacios = true;
+            return alertaCamposVaciosEspacios()
+        }
+
+        if(salario<1){
+            camposVacios = true;
+            return alertaCifraInvalida()
+             
+        }
+
+        if(!camposVacios){
+            
+        try {
+            await axios.patch(`http://localhost:5000/admin/Employees/editOptions/employmentData/${id_usuario}`,
+                {
+                    salario: salarioFloat,
+                    rol: cargoInt
+                });
+            //alerta
+            Swal.fire({
+                titleText: `Los datos han sido actualizados`,
+                confirmButtonColor: "#F47228"
+            });
+            //redireccion
+            navigate('/admin/Employees');
+
+        } catch (error) {
+            console.log(error);
+            if (error.response && error.response.data && error.response.data.msg) {
+                Swal.fire('Error', error.response.data.msg, 'error');
+            } else {
+                Swal.fire('Error', 'Error en el servidor', 'error');
             }
-        
+        }
+
+        }
     }
 
 
