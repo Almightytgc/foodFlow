@@ -49,7 +49,7 @@ export const EditProductForm = () => {
         e.preventDefault();
         let camposVacios = false;
 
-        if (nombre == "" || categoria == "" || precio == "") {
+        if (!nombre || !categoria || !precio ) {
             camposVacios = true;
             return alertaCamposVacios();
 
