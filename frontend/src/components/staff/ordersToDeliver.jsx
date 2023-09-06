@@ -48,7 +48,7 @@ export const OrdersToDeliver = () => {
       <div className="md:w-4/3 px-16 flex flex-col justify-start items-start">
         <h1 className="border-[#58764E] border-b-4 py-2 w-[30%] max-sm:w-[50%] max-sm:text-2xl text-3xl my-8 font-bold text-[#F47228]" >Pedidos a entregar</h1>
 
-        <p className="text-[#fff] font-bold  my-8 max-sm:text-justify  max-sm:text-2xl text-5xl">
+        <p className="text-[#fff] font-bold  my-8 max-sm:text-justify  max-sm:text-2xl text-3xl">
           Controle y Administre el estado en que se encuentran los pedidos.
         </p>
       </div>

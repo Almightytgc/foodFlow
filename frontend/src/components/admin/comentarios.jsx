@@ -50,13 +50,21 @@ export const Comentarios = () => {
 
     return (
         <>
-            <div class="max-w-full flex flex-col overflow-hidden sm:flex-wrap md:flex-row gap-2">
-                <div className="md:w-4/3 px-16 flex flex-col justify-start items-start">
-                    <h1 className="border-[#58764E] border-b-4 py-2 w-[30%] max-sm:w-[50%] max-sm:text-2xl text-3xl my-8 font-bold text-[#F47228]" >Buzón de comentarios</h1>
+            <div class="w-full flex flex-col overflow-hidden sm:flex-wrap md:flex-row gap-2">
+                <div className="md:w-full flex flex-col justify-center items-start">
+                    
+                    <h1 className="border-[#58764E] border-b-4 py-2 mx-4 w-[25%] max-sm:w-[50%] max-sm:text-2xl text-3xl my-8 font-bold text-[#F47228]" >Buzón de comentarios</h1>
 
-                    <p className="text-[#fff] font-bold  my-8 max-sm:text-justify  max-sm:text-2xl text-5xl">
+                    <p className="text-[#fff] font-bold my-8 max-sm:text-2xl text-5xl mx-auto">
                         Conozca la opinión de los clientes FoodFlow
                     </p>
+
+                    {/* boton regresar */}
+                    <div className="w-1/3 flex justify-center my-10 mx-auto">
+                        <Link className="bg-[#58764E] text-white text-center hover:text-[#000] hover:bg-[#fff] duration-300 rounded-lg p-2 text-lg font-bold w-full" to={"/admin"}>
+                            <span className="font-bold">
+                            </span>  Regresar</Link>
+                    </div>
                 </div>
 
                 <div className="overflow-x mx-auto w-3/4">
@@ -88,13 +96,6 @@ export const Comentarios = () => {
                             })}
                         </tbody>
                     </table>
-                </div>
-
-                {/* boton regresar */}
-                <div className="w-1/3 flex justify-start my-10 mx-auto">
-                    <Link className="bg-[#58764E] text-white text-center hover:text-[#000] hover:bg-[#fff] duration-300 rounded-lg p-2 text-lg font-bold w-full" to={"/admin"}>
-                        <span className="font-bold">
-                        </span>  Regresar</Link>
                 </div>
             </div>
 

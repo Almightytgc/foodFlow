@@ -30,9 +30,20 @@ export const EditOptions = () => {
             <div classNameName="mt-15 rounded-2xl p-5 flex items-center justify-center  max-sm:flex-wrap-reverse">
                 <section className="text-gray-400">
                     <div className="container px-5 py-24 mx-auto">
-                        <div className="flex flex-col text-center w-full mb-20">
-                            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-[#F47228] border-[#58764E] border-b-4 p-2 max-sm:w-full mx-auto">Elija la información a editar</h1>
+
+                        <div className="flex flex-col text-center w-full">
+                            <h1 className="sm:text-3xl text-2xl font-medium title-font text-[#F47228] border-[#58764E] border-b-4 p-2 max-sm:w-full mx-auto">Elija la información a editar</h1>
                         </div>
+
+                        {/* boton regresar */}
+                        <div className="my-4 w-full flex justify-start mx-auto">
+                            <div className="p-5 mx-auto">
+                                <Link className="bg-[#58764E] text-white hover:text-[#000] hover:bg-[#fff] duration-300 rounded-lg p-2 text-lg font-bold" to={"/admin/Employees"}>
+                                    <span className="font-bold">
+                                    </span>  Regresar</Link>
+                            </div>
+                        </div>
+
                         <div className="flex flex-wrap -m-4 text-center">
                             <Link to={`/admin/Employees/editOptions/general/${id_usuario}`} className="p-4 md:w-1/4 sm:w-1/2 w-full mx-auto hover:scale-110 duration-300">
                                 <div className="border-2 border-white px-4 py-6 rounded-lg  ">
@@ -70,14 +81,6 @@ export const EditOptions = () => {
                                     <p className="leading-relaxed px-5">Cargo a desempeñar o el salario</p>
                                 </div>
                             </Link>
-                        </div>
-                    </div>
-                    {/* boton regresar */}
-                    <div className="w-full flex justify-start m-y mx-auto">
-                        <div className="p-5 mx-auto">
-                            <Link className="bg-[#58764E] text-white hover:text-[#000] hover:bg-[#fff] duration-300 rounded-lg p-2 text-lg font-bold" to={"/admin/Employees"}>
-                                <span className="font-bold">
-                                </span>  Regresar</Link>
                         </div>
                     </div>
                 </section>

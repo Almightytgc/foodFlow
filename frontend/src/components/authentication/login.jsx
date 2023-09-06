@@ -23,10 +23,10 @@ export const LoginForm = () => {
 
     if (user == "" || passWord == "") {
       camposVacios = true;
-     return alertaCamposVacios();
+      return alertaCamposVacios();
     }
 
-    if(!user.trim().length || !passWord.trim().length){
+    if (!user.trim().length || !passWord.trim().length) {
       camposVacios = true;
       return alertaCamposVaciosEspacios();
     }

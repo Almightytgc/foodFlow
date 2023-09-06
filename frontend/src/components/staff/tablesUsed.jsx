@@ -3,7 +3,6 @@ import axios from "axios";
 
 export const TablesUsed = () => {
 
-    let isSetDataTables = false;
     const { mutate } = useSWRConfig();
 
     const fetcher = async () => {
@@ -18,11 +17,12 @@ export const TablesUsed = () => {
         return <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
     }
 
-    if (data) isSetDataTables = true;
-
     if (tablesLoading) return <h2 className="text-white text-6xl mx-auto">Cargando...</h2>;
-    console.log(error)
-    if (error) <p className="text-3xl text-white text-center">"Hubo un error"</p>
+
+    if (error) {
+        console.log(error)
+        return <p className="text-3xl text-white text-center">"Hubo un error"</p>
+    }
 
 
     const cambiarEstadoMesa = async (id_mesa) => {
@@ -33,13 +33,13 @@ export const TablesUsed = () => {
             console.error(error);
         }
     }
-    console.log(data);
+    // console.log(data);
     return (
         <>
             <div className="md:w-4/3 px-16 flex flex-col justify-start items-start">
                 <h1 className="border-[#58764E] border-b-4 py-2 w-[30%] max-sm:w-[50%] max-sm:text-2xl text-3xl my-8 font-bold text-[#F47228]" >Mesas ocupadas</h1>
 
-                <p className="text-[#fff] font-bold  my-8 max-sm:text-justify  max-sm:text-2xl text-5xl">
+                <p className="text-[#fff] font-bold  my-8 max-sm:text-justify  max-sm:text-2xl text-3xl">
                     Controle y Administre el estado en que se encuentran las mesas.
                 </p>
             </div>

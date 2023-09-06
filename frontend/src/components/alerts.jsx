@@ -7,6 +7,26 @@ export const alertaBienvenida = (user) => {
     });
 }
 
+export const alertaCerrarSesion = () => {
+    let timerInterval
+    Swal.fire({
+        title: 'Cerrando sesión',
+        html: 'Esperamos verte pronto',
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+            }, 100)
+        },
+        willClose: () => {
+            clearInterval(timerInterval)
+        }
+    })
+}
+
 // forms
 
 export const alertaRegistroExitoso = () => {
@@ -42,7 +62,7 @@ export const alertaCamposVacios = () => {
 }
 
 export const alertaCamposVaciosEspacios = () => {
-    Swal.fire({ 
+    Swal.fire({
         icon: "error",
         iconColor: "red",
         title: "Campos vacíos",
@@ -53,7 +73,7 @@ export const alertaCamposVaciosEspacios = () => {
 }
 
 export const alertaCifraInvalida = () => {
-    Swal.fire({ 
+    Swal.fire({
         icon: "error",
         iconColor: "red",
         title: "Cifra invalida",
@@ -73,7 +93,7 @@ export const alertaNoCoincide = () => {
     });
 }
 
-export const alertaPasswordsNoCoinciden = () =>{
+export const alertaPasswordsNoCoinciden = () => {
     Swal.fire({
         icon: 'error',
         iconColor: 'red',
@@ -198,16 +218,16 @@ export const alertaProductoAgregadoCarrito = (producto) => {
         timer: 1000,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
-      })
-      
-      Toast.fire({
+    })
+
+    Toast.fire({
         icon: 'success',
         iconColor: "green",
         title: producto + " agregado al carrito"
-      })
+    })
 }
 
 export const alertaProductoEliminadoCarrito = (producto) => {
@@ -218,16 +238,16 @@ export const alertaProductoEliminadoCarrito = (producto) => {
         timer: 1000,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
-      })
-      
-      Toast.fire({
+    })
+
+    Toast.fire({
         icon: 'info',
         iconColor: "red",
         title: producto + " eliminado del carrito"
-      })
+    })
 }
 
 //mesa no seleccionada
@@ -244,12 +264,12 @@ export const alertaErrorMesaVacia = () => {
 
 //carrito de compras vacío
 
-  export const alertaErrorCarritoVacio = () => {
+export const alertaErrorCarritoVacio = () => {
     Swal.fire({
         icon: "error",
         iconColor: "red",
         title: "Error al realizar tu pedido",
-        text:  "El carrito está vacío. Agrega productos antes de enviar el pedido.",
+        text: "El carrito está vacío. Agrega productos antes de enviar el pedido.",
         confirmButtonColor: "#249643",
         color: "##211B16",
     });

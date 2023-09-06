@@ -26,7 +26,7 @@ export const CustomerIndex = () => {
     const navigate = useNavigate();
     const userLoggedStorage = localStorage.getItem("userLogged");
 
-
+    const { mutate } = useSWRConfig();
 
     useEffect(() => {
         //set id de usuario
@@ -52,7 +52,6 @@ export const CustomerIndex = () => {
 
     //obtener id del usuario
 
-
     const configurarMesa = () => {
         return navigate("setTable");
     }
@@ -63,12 +62,13 @@ export const CustomerIndex = () => {
         return data;
     }
 
-    const { data, error, isLoading, isValidating } = useSWR("mesas", fetcher, { refreshInterval: 100 });
+    const { data, error, isLoading} = useSWR("mesas", fetcher, { refreshInterval: 100 });
 
 
     if (!data) return <p className="text-3xl text-white mx-auto">Cargando . . . </p>;
     if (isLoading) return <p className="text-3xl text-white mx-auto">Cargando . . . </p>;
     if (!data.fk_usuario) <p className="text-3xl text-white text-center mx-auto">Últimos ajustes . . .</p>
+
     if (error) {
         return <p className="text-3xl text-white mx-auto text-center">{error.response.data.message} <br /> <span className="text-lg border rounded-xl p-1.5 hover:bg-white hover:text-black duration-300" onClick={() => configurarMesa()}>Configurar mesa</span> </p>;
     }
@@ -76,15 +76,17 @@ export const CustomerIndex = () => {
 
 
     const solicitarAtencion = async () => {
-            // await mutate("mesas");
-            // console.log(data.fk_usuario)
+        mutate("mesas");
+        // console.log(data.fk_usuario)
         if (data.fk_usuario === null) {
             alertaErrorSolicitudAtencion();
             return navigate("setTable");
         } else {
             // console.log(data.token);
-            socket.emit("solicitudAtencion", `Se necesita atención en la mesa ${data.token}`);
-            return alertaAtencionSolicitada();
+            setTimeout(() => {
+                socket.emit("solicitudAtencion", `Se necesita atención en la mesa ${data.token}`);
+                return alertaAtencionSolicitada();
+            }, 0);
         }
     }
 
@@ -126,7 +128,7 @@ export const CustomerIndex = () => {
                 <div className="md:w-1/2 md:px-16 flex flex-col">
                     <h1 className="border-[#58764E] border-b-4 p-2 w-[45%] max-sm:w-[60%] max-sm:text-2xl text-3xl my-8 font-bold text-[#F47228]" >Clientes FoodFlow</h1>
 
-                    <p className="text-[#fff] font-bold  my-8 mx-auto max-sm:text-justify text-4xl md:text-6xl">
+                    <p className="text-[#fff] font-bold  my-8 mx-auto max-sm:text-justify text-4xl md:text-4xl">
                         ¡Descubre el placer culinario en cada bocado! 🍽️
                     </p>
                 </div>

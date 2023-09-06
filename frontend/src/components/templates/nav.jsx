@@ -54,8 +54,6 @@ export function NavBar() {
     }
   };
 
-   
-  
   return (
     <>
       

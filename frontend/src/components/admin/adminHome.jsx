@@ -71,7 +71,7 @@ export const AdminIndex = () => {
                 <div className="md:w-1/2 md:px-16 flex flex-col">
                     <h1 className="border-[#58764E] border-b-4 p-2 w-[65%] text-3xl my-8 font-bold text-[#F47228]" >Administradores FoodFlow</h1>
 
-                    <p className="text-5xl text-[#fff] font-bold  my-8 mx-auto">
+                    <p className="text-3xl text-[#fff] font-bold  my-8 mx-auto">
                         Nuestro Personal Capacitado para servir con la mayor eficiencia. 👌🏻
                     </p>
                 </div>

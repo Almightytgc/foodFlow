@@ -1,7 +1,5 @@
 import logoFoodFlowBlanco from "../../assets/logo/logoFoodFlow.png";
 
-
-
 export const Footer = () => {
   return (
     <>

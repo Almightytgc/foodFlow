@@ -47,7 +47,9 @@ export const StaffIndex = () => {
 
     if (isLoggedMesero == "2" ) {
         socket.on("mensajeAtencionStaff", (data) => {
-            alertAtencion(data);
+            setTimeout(() => {
+                alertAtencion(data);
+            },0)
         })
     }
 
@@ -81,7 +83,7 @@ export const StaffIndex = () => {
                 <div className="md:w-1/2 md:px-16 flex flex-col">
                     <h1 className="border-[#58764E] border-b-4 p-2 w-[45%] max-sm:w-[60%] max-sm:text-2xl text-3xl my-8 font-bold text-[#F47228]" >Staff FoodFlow</h1>
 
-                    <p className="text-[#fff] font-bold  my-8 mx-auto text-justify max-sm:text-justify sm:text-2xl md:text-5xl">
+                    <p className="text-[#fff] font-bold  my-8 mx-auto text-justify max-sm:text-justify sm:text-2xl md:text-4xl">
                         Cada plato que servimos es una oportunidad para hacer sonreír a nuestros clientes. 😄
                     </p>
                 </div>

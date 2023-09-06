@@ -63,7 +63,7 @@ export const SignUpForm = () => {
 
     } else if (!validarNombreApellido(names) || !validarNombreApellido(lastNames)) {
       return alertaNombresApellidosInvalidos();
-    } else if(!names.trim().length|| !lastNames.trim().length || !user.trim().length || !passWord.trim().length || !confirmPassword.trim().length ){
+    } else if (!names.trim().length || !lastNames.trim().length || !user.trim().length || !passWord.trim().length || !confirmPassword.trim().length) {
       camposVacios = true;
       return alertaCamposVaciosEspacios();
     }
@@ -117,7 +117,7 @@ export const SignUpForm = () => {
     }
   }
 
-  return (  
+  return (
     <>
       {/* contenedor general */}
       <div className="m-24 max-sm:m-10 bg-gray-100 rounded-2xl shadow-lg md:max-w-4xl h-auto p-3 flex items-center justify-center">
@@ -129,52 +129,69 @@ export const SignUpForm = () => {
           <form onSubmit={registrarUsuario} className="flex flex-col gap-4">
 
             {/* Nombres y apellidos */}
-            <div className='flex flex-row max-sm:flex-wrap'>
-              <input
-                className="p-2 mt-8 rounded-xl border w-1/2 max-sm:w-full mx-1"
-                type="text"
-                name="nombres"
-                placeholder="Nombres"
-                value={names}
-                onChange={(e) => setNombres(e.target.value)}
-              ></input>
+            {/* Nombres y apellidos */}
+            <div className='flex flex-row max-sm:flex-wrap my-5 justify-center gap-2'>
+              <div className='text-center flex flex-col w-full'>
+                <label htmlFor="nombres" className='text-sm text-[#211B16] font-bold'>Nombres</label>
+                <input
+                  className="p-2 mt-8 rounded-xl border w-full max-sm:w-full mx-1 shadow-lg"
+                  type="text"
+                  name="nombres"
+                  placeholder="Nombres"
+                  value={names}
+                  onChange={(e) => setNombres(e.target.value)}
+                ></input>
+              </div>
 
-              <input
-                className="p-2 mt-8 rounded-xl  border w-1/2 mx-1 max-sm:w-full "
-                type="text"
-                name="apellidos"
-                placeholder="Apellidos"
-                value={lastNames}
-                onChange={(e) => setApellidos(e.target.value)}
-              ></input>
+              <div className='text-center w-full flex flex-col'>
+                <label htmlFor="fechaNacimiento" className='text-sm text-[#211B16] font-bold'>Apellidos</label>
+
+                <input
+                  className="p-2 mt-8 rounded-xl border w-full mx-1 shadow-lg"
+                  type="text"
+                  name="nombres"
+                  placeholder="Apellidos"
+                  value={lastNames}
+                  onChange={(e) => setApellidos(e.target.value)}
+                ></input>
+              </div>
             </div>
 
-            {/* telefono y fecha de nacimiento  */}
-            <div className='flex flex-row max-sm:flex-wrap'>
-              <div className='flex flex-col justify-center w-1/2 text-center mx-2 max-sm:w-full'>
-                <input className="p-2 rounded-xl mt-8 border w-full placeholder:text-sm"
+
+            {/* telefono y correo  */}
+            <div className='flex flex-row max-sm:flex-wrap my-5 justify-center gap-2'>
+              <div className='text-center flex flex-col w-full'>
+                <label htmlFor="telefono" className='text-sm text-[#211B16] font-bold'>Teléfono</label>
+                <input
+                  className="p-2 mt-8 rounded-xl border w-full max-sm:w-full mx-1 shadow-lg"
                   type="text"
-                  name="apellidos"
-                  placeholder="Telefono"
+                  name="nombres"
+                  placeholder="Teléfono"
                   value={phone}
                   onChange={(e) => setTelefono(e.target.value)}
                 ></input>
               </div>
 
-
-              <input
-                className="p-2 mt-8 rounded-xl  border w-1/2 mx-1 max-sm:w-full"
-                type="email"
-                name="nombres"
-                placeholder="correo"
-                value={mail}
-                onChange={(e) => setCorreo(e.target.value)}
-              ></input>
+              <div className='text-center w-full flex flex-col'>
+                <div className='text-center flex flex-col w-full'>
+                  <label htmlFor="fechaNacimiento" className='text-sm text-[#211B16] font-bold'>Correo</label>
+                  <input
+                    className="p-2 mt-8 rounded-xl border w-full max-sm:w-full mx-1 shadow-lg"
+                    type="mail"
+                    placeholder="correo"
+                    value={mail}
+                    onChange={(e) => setCorreo(e.target.value)}
+                  ></input>
+                </div>
+              </div>
             </div>
+
+            <h3 className='text-sm text-center my-4 font-bold'>Usuario</h3>
+
 
             {/* correo y usuario */}
             <input
-              className="p-2 my-4 rounded-xl  border w-full mx-1"
+              className="p-2  rounded-xl  border w-full mx-1"
               type="text"
               name="apellidos"
               placeholder="Usuario"

@@ -9,10 +9,6 @@ import { ErrorPage } from "./error-page";
 //menu
 import MenuOptions from "../components/productsMenu/menu";
 import MenuUser from "../components/productsMenu/menuUser";
-// import { MenuAppetizers } from "../components/productsMenu/menuAppetizers";
-// import { MenuMainDishes } from "../components/productsMenu/menuMainDishes";
-// import { MenuBeverages } from "../components/productsMenu/menuBeverages";
-// import { MenuDesserts } from "../components/productsMenu/menuDesserts";
 
 //componentes usuario anónimo
 import { Index } from "../components/indexPage/Index";
@@ -50,6 +46,7 @@ import { Comentarios } from "../components/admin/comentarios";
 
 //editar usuarios (administrador)
 import { EditOptions } from "../components/admin/staff/edit/editOptions";//menu de opciones edicion admin
+import { EmployeeGeneralEditionForm } from "../components/admin/staff/edit/employeeGeneral";
 import { PasswordEditionForm } from "../components/admin/staff/edit/passwordEdition";
 import { EmploymentDataEditionForm } from "../components/admin/staff/edit/employmentData";
 
@@ -82,22 +79,6 @@ export const PagesRouter = createBrowserRouter([
         path: "/menu",
         element: <MenuUser />
       },
-      // {
-      //   path: "/menu/appetizers",
-      //   element: <MenuAppetizers />
-      // },
-      // {
-      //   path: "/menu/MainDishes",
-      //   element: <MenuMainDishes />
-      // },
-      // {
-      //   path: "/menu/beverages",
-      //   element: <MenuBeverages />
-      // },
-      // {
-      //   path: "/menu/desserts",
-      //   element: <MenuDesserts />
-      // },
       {
         path: "/authentication",
         element: <LoginForm />,
@@ -157,7 +138,7 @@ export const PagesRouter = createBrowserRouter([
   {
     path: "/staff",
     element: <RootLogged />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/staff",
@@ -216,11 +197,6 @@ export const PagesRouter = createBrowserRouter([
         path: "/admin/editOptions/securityQuestion/:id_usuario",
         element: <SecurityQuestionForm />
       },
-      //editar perfil de administrador
-      {
-        path: "/admin/editOptions/:id_usuario",
-        element: <EditUserOptions />
-      },
       //crud de empleados
       {
         path: "/admin/Employees",
@@ -236,7 +212,7 @@ export const PagesRouter = createBrowserRouter([
       },
       {
         path: "/admin/Employees/editOptions/general/:id_usuario",
-        element: <UserGeneralEditionForm />,
+        element: <EmployeeGeneralEditionForm />,
       },
       {
         path: "/admin/Employees/editOptions/password/:id_usuario",

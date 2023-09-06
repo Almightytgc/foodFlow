@@ -39,7 +39,7 @@ export const ResetPasswordForm = () => {
             return alertaNoCoincide();
         }
 
-        if(!newPassword.trim().length === 0 || !confirmPassword.trim().lenght === 0){
+        if (!newPassword.trim().length === 0 || !confirmPassword.trim().lenght === 0) {
             camposVacios = true;
             return alertaCamposVaciosEspacios();
         }
@@ -93,8 +93,9 @@ export const ResetPasswordForm = () => {
                         Reestablecer contraseña
                     </h2>
                     <form onSubmit={verificarCredenciales} className="flex flex-col mt-4 gap-4">
+                        <h3 className='text-sm text-center font-bold'>Usuario</h3>
                         <input
-                            className="p-2 mt-8 rounded-xl  border shadow-xl"
+                            className="p-2 mt-2 rounded-xl  border shadow-xl"
                             type="text"
                             name="usuario"
                             placeholder="Usuario"
@@ -113,8 +114,10 @@ export const ResetPasswordForm = () => {
                             </select>
                         </div>
 
+                        <h3 className='text-sm text-center font-bold'>Respuesta</h3>
+
                         <input
-                            className="p-2 mt-8 rounded-xl  border shadow-xl"
+                            className="p-2 mt-2 rounded-xl  border shadow-xl"
                             type="text"
                             name="usuario"
                             placeholder="Respuesta"
@@ -122,10 +125,12 @@ export const ResetPasswordForm = () => {
                             onChange={(e) => setRespuesta(e.target.value)}
                         ></input>
 
+                        <h3 className='text-sm text-center my-2 font-bold'>Contraseña</h3>
+
                         <div className="relative">
                             <input
                                 ref={passwordRef}
-                                className="p-2 mt-8 rounded-xl w-full  border shadow-xl"
+                                className="p-2 mt-2 rounded-xl w-full  border shadow-xl"
                                 type="password"
                                 name="password"
                                 id="inputPassword"

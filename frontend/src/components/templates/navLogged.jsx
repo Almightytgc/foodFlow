@@ -11,7 +11,7 @@ import useSWR, { useSWRConfig } from "swr";
 import axios from "axios";
 //socket 
 import io from "socket.io-client";
-import { alertAtencion } from "../alerts";
+import { alertAtencion, alertaCerrarSesion } from "../alerts";
 
 const socket = io("http://localhost:5000", { transports: ["websocket", "polling"] });
 
@@ -121,7 +121,11 @@ export function NavBarLogged() {
   //función de cierre de sesión
   const cerrarSesion = () => {
     localStorage.clear();
-    navigate("/");
+    alertaCerrarSesion();
+    setTimeout(() => {
+      navigate("/");
+      window.location.reload();
+    },1500)
   }
 
 

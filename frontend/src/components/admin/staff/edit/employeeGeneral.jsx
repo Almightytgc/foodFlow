@@ -6,11 +6,11 @@ import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 //alerta / notificaciones
-import { alertaAutenticacion, alertaTelefonoInvalido, alertaNombresApellidosInvalidos, alertaCamposVaciosEspacios } from '../alerts';
+import { alertaAutenticacion, alertaTelefonoInvalido, alertaNombresApellidosInvalidos, alertaCamposVaciosEspacios } from '../../../alerts';
 import Swal from 'sweetalert2';
 
 
-export const UserGeneralEditionForm = () => {
+export const EmployeeGeneralEditionForm = () => {
 
     const { id_usuario } = useParams();
 
@@ -33,27 +33,6 @@ export const UserGeneralEditionForm = () => {
             return alertaAutenticacion();
         }
     }, []);
-
-    //rutas para las opciones
-    let rutaGeneral = "";
-    let rutaContraseña = "";
-    let rutaVerificacionPregunta = "";
-
-    const validarRegresar = () => {
-        if (userLoggedStorage) {
-            rutaGeneral = `/customer/editOptions/${id_usuario}`;
-        } else if (staffLoggedStorage) {
-            rutaGeneral = `/staff/editOptions/${id_usuario}`;
-        } else if (adminLoggedStorage) {
-            rutaGeneral = `/admin/editOptions/${id_usuario}`;
-        }
-        return rutaGeneral;
-    }
-
-    const rutaGeneralValidada = validarRegresar();
-
-
-
 
     //recepción de datos del form
     const [names, setNombres] = useState("");
@@ -134,7 +113,7 @@ export const UserGeneralEditionForm = () => {
                     confirmButtonColor: "#F47228"
                 });
                 //redireccion
-                navigate(rutaGeneralValidada);
+                navigate(`/admin/Employees/editOptions/${id_usuario}`);
 
             } catch (error) {
                 console.log(error);
@@ -231,7 +210,7 @@ export const UserGeneralEditionForm = () => {
                         <div className="flex flex-row w-full gap-2 justify-center items-center">
 
                             {/* boton regresar */}
-                            <Link className="text-center w-1/2 bg-[#F47228] hover:bg-[#272424] hover:text-[#fff] rounded-xl text-white p-2 duration-500 my-5 font-bold" to={rutaGeneralValidada}>
+                            <Link className="text-center w-1/2 bg-[#F47228] hover:bg-[#272424] hover:text-[#fff] rounded-xl text-white p-2 duration-500 my-5 font-bold" to={`/admin/Employees/editOptions/${id_usuario}`}>
                                 <span className="font-bold">
                                 </span>Regresar
                             </Link>
