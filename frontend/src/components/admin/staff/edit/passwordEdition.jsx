@@ -118,7 +118,7 @@ export const PasswordEditionForm = () => {
                     </h2>
                     <form onSubmit={actualizarUsuario} className="flex flex-col gap-2">
 
-                        <h3 className='text-sm text-center my-4 font-bold'>Contraseña</h3>
+                        <h3 className='text-sm text-center my-4 font-bold'>Contraseña nueva</h3>
 
                         <div className="relative">
                             <input

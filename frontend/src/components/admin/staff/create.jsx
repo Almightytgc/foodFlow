@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 //alerta / notificaciones
 import Swal from 'sweetalert2';
-import { alertaAutenticacion, alertaCamposVaciosEspacios, alertaCifraInvalida, alertaNombresApellidosInvalidos,  } from '../../alerts';
+import { alertaAutenticacion, alertaCamposVaciosEspacios, alertaCifraInvalida, alertaNombresApellidosInvalidos, alertaTelefonoInvalido } from '../../alerts';
 
 export const CreateEmployeesForm = () => {
 
@@ -139,56 +139,75 @@ export const CreateEmployeesForm = () => {
           <form onSubmit={registrarUsuario} className="flex flex-col gap-2">
 
             {/* Nombres y apellidos */}
-            <div className='flex flex-row max-sm:flex-wrap'>
-              <input
-                className="p-2 mt-8 rounded-xl border w-1/2 max-sm:w-full mx-1 shadow-lg"
-                type="text"
-                name="nombres"
-                placeholder="Nombres"
-                value={names}
-                onChange={(e) => setNombres(e.target.value)}
-              ></input>
+            <div className='flex flex-row max-sm:flex-wrap my-5 justify-center gap-2'>
+              <div className='text-center flex flex-col w-full'>
+                <label htmlFor="nombres" className='text-sm text-[#211B16] font-bold'>Nombres</label>
+                <input
+                  className="p-2 mt-8 rounded-xl border w-full max-sm:w-full mx-1 shadow-lg"
+                  type="text"
+                  name="nombres"
+                  placeholder="Nombres"
+                  value={names}
+                  onChange={(e) => setNombres(e.target.value)}
+                ></input>
+              </div>
 
-              <input
-                className="p-2 mt-8 rounded-xl border w-1/2 max-sm:w-full mx-1 shadow-lg"
-                type="text"
-                name="apellidos"
-                placeholder="Apellidos"
-                value={lastNames}
-                onChange={(e) => setApellidos(e.target.value)}
-              ></input>
+              <div className='text-center w-full flex flex-col'>
+                <label htmlFor="fechaNacimiento" className='text-sm text-[#211B16] font-bold'>Apellidos</label>
+
+                <input
+                  className="p-2 mt-8 rounded-xl border w-full mx-1 shadow-lg"
+                  type="text"
+                  name="nombres"
+                  placeholder="Apellidos"
+                  value={lastNames}
+                  onChange={(e) => setApellidos(e.target.value)}
+                ></input>
+              </div>
             </div>
 
             {/* telefono y fecha de nacimiento  */}
-            <div className='flex flex-row max-sm:flex-wrap'>
-              <input className="p-2 mt-8 rounded-xl border w-1/2 max-sm:w-full mx-1 shadow-lg"
-                type="text"
-                name="apellidos"
-                placeholder="Telefono"
-                value={phone}
-                onChange={(e) => setTelefono(e.target.value)}
-              >
-              </input>
+            <div className='flex flex-row max-sm:flex-wrap my-5 justify-center gap-2'>
+              <div className='text-center flex flex-col w-full'>
+                <label htmlFor="telefono" className='text-sm text-[#211B16] font-bold'>Teléfono</label>
+                <input
+                  className="p-2 mt-8 rounded-xl border w-full max-sm:w-full mx-1 shadow-lg"
+                  type="text"
+                  placeholder="Teléfono"
+                  value={phone}
+                  onChange={(e) => setTelefono(e.target.value)}
+                ></input>
+              </div>
 
-              <input
-                className="p-2 mt-8 rounded-xl border w-1/2 max-sm:w-full mx-1 shadow-lg"
-                type="email"
-                name="nombres"
-                placeholder="correo"
-                value={mail}
-                onChange={(e) => setCorreo(e.target.value)}
-              ></input>
+              <div className='text-center w-full flex flex-col'>
+                <div className='text-center flex flex-col w-full'>
+                  <label htmlFor="fechaNacimiento" className='text-sm text-[#211B16] font-bold'>Correo</label>
+                  <input
+                    className="p-2 mt-8 rounded-xl border w-full max-sm:w-full mx-1 shadow-lg"
+                    type="mail"
+                    placeholder="Correo"
+                    value={mail}
+                    onChange={(e) => setCorreo(e.target.value)}
+                  ></input>
+                </div>
+              </div>
             </div>
 
             {/* correo y usuario */}
+
+            <h3 className='text-sm text-center font-bold my-4'>Usuario</h3>
+
             <input
-              className="p-2 my-8 rounded-xl  border w-full mx-1 shadow-lg"
+              className="p-2 rounded-xl  border w-full mx-1 shadow-lg"
               type="text"
               name="apellidos"
               placeholder="Usuario"
               value={user}
               onChange={(e) => setUsuario(e.target.value)}
             ></input>
+
+            <h3 className='text-sm text-center font-bold my-4'>Contraseña</h3>
+
 
             {/* contraseña */}
             <div className="relative">
@@ -217,8 +236,12 @@ export const CreateEmployeesForm = () => {
             </div>
 
             <div className='flex flex-col gap-4'>
+
+              <h3 className='text-sm text-center font-bold my-4'>Digite el salario</h3>
+
+
               <input
-                className="p-2 mt-8 rounded-xl border w-full mx-1 shadow-lg"
+                className="p-2 rounded-xl border w-full mx-1 shadow-lg"
                 type="number"
                 step='any'
                 name="nombres"

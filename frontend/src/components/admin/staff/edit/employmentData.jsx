@@ -128,8 +128,11 @@ export const EmploymentDataEditionForm = () => {
                     <form onSubmit={actualizarUsuario} className="flex flex-col gap-2">
 
                         <div className='flex flex-col gap-4'>
+
+                        <h3 className='text-sm text-center my-4 font-bold'>Salario</h3>
+
                             <input
-                                className="p-2 mt-8 rounded-xl border w-full mx-1 shadow-lg"
+                                className="p-2 rounded-xl border w-full mx-1 shadow-lg"
                                 type="number"
                                 step='any'
                                 name="nombres"

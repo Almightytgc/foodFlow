@@ -174,7 +174,7 @@ export const EmployeeGeneralEditionForm = () => {
                                     className="p-2 mt-8 rounded-xl border w-full max-sm:w-full mx-1 shadow-lg"
                                     type="text"
                                     name="nombres"
-                                    placeholder="Nombres"
+                                    placeholder="Teléfono"
                                     value={phone}
                                     onChange={(e) => setTelefono(e.target.value)}
                                 ></input>
@@ -187,7 +187,7 @@ export const EmployeeGeneralEditionForm = () => {
                                         className="p-2 mt-8 rounded-xl border w-full max-sm:w-full mx-1 shadow-lg"
                                         type="text"
                                         name="nombres"
-                                        placeholder="Nombres"
+                                        placeholder="Correo"
                                         value={mail}
                                         onChange={(e) => setCorreo(e.target.value)}
                                     ></input>
@@ -202,7 +202,7 @@ export const EmployeeGeneralEditionForm = () => {
                             type="text"
                             name="password"
                             id="inputPassword"
-                            placeholder="Contraseña"
+                            placeholder="Usuario"
                             value={user}
                             onChange={(e) => setUsuario(e.target.value)}
                         ></input>
