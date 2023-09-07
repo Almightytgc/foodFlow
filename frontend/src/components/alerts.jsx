@@ -285,6 +285,73 @@ export const alertaPedidoEnviado = () => {
     });
 }
 
+
+//mesa seleccionada para asignarle orden
+export const alertaMesaSeleccionadaOrden = () => {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        icon: 'info',
+        title: "Mesa seleccionada exitosamente"
+    })
+}
+
+
+
+//orden entregada
+export const alertaOrdenEntregada = () => {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        icon: 'success',
+        iconColor: "green",
+        title: "Pedido marcado como entregado exitosamente"
+    })
+}
+
+//mesa desocupada
+export const alertaMesaDesocupada = () => {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        icon: 'success',
+        iconColor: "green",
+        title: "Mesa marcada como desocupada exitosamente"
+    })
+}
+
+
+
 //crud productos
 
 export const alertaProductoCreado = () => {

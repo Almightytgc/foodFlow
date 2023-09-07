@@ -1,6 +1,7 @@
 import useSWR, { useSWRConfig } from "swr";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { alertaOrdenEntregada } from "../alerts";
 
 export const OrdersToDeliver = () => {
   const { mutate } = useSWRConfig();
@@ -23,6 +24,7 @@ export const OrdersToDeliver = () => {
         `http://localhost:5000/staff/orderDelivered/${idOrden}`
       );
       mutate("ordenesPendientes");
+      alertaOrdenEntregada();
       // if (response) {
       //   return console.log("Orden marcada como entregada exitosamente");
       // }

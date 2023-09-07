@@ -1,5 +1,6 @@
 import useSwr, { useSWRConfig } from "swr"
 import axios from "axios";
+import { alertaMesaDesocupada } from "../alerts";
 
 export const TablesUsed = () => {
 
@@ -29,6 +30,7 @@ export const TablesUsed = () => {
         try {
             const response = await axios.patch(`http://localhost:5000/staff/usedTables/${id_mesa}`);
             mutate("mesas");
+            alertaMesaDesocupada();
         } catch (error) {
             console.error(error);
         }

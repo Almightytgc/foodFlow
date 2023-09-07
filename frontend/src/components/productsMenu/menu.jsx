@@ -6,7 +6,7 @@ import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import ReceiptPDF from "./receiptPDF";
 
 
-import { alertaErrorMesaVacia, alertaErrorCarritoVacio, alertaProductoAgregadoCarrito, alertaProductoEliminadoCarrito, alertaPedidoEnviado } from "../alerts";
+import { alertaErrorMesaVacia, alertaErrorCarritoVacio, alertaProductoAgregadoCarrito, alertaProductoEliminadoCarrito, alertaPedidoEnviado, alertaMesaSeleccionadaOrden } from "../alerts";
 
 const MenuOptions = () => {
   const [cart, setCart] = useState([]); // Estado del carrito
@@ -129,10 +129,13 @@ const MenuOptions = () => {
     return cart.reduce((total, item) => total + item.precio * item.cantidad, 0);
   };
 
+
+
   // Función para tomar orden de una mesa
   const handleTakeOrder = (table) => {
     // console.log(table); // Verifica si la información de la mesa es correcta
     setSelectedTable(table);
+    alertaMesaSeleccionadaOrden();
   };
 
 
