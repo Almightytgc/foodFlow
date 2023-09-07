@@ -30,6 +30,7 @@ export const EditProductForm = () => {
     //recepción de datos del form
     const [nombre, setNombre] = useState("");
     const [precio, setPrecio] = useState("");
+    const precioParseado = parseFloat(precio);
     const [categoria, setCategoria] = useState("")
     const { id_producto } = useParams();
 
@@ -71,7 +72,7 @@ export const EditProductForm = () => {
                     {
                         name: nombre,
                         category: categoria,
-                        price: precio
+                        price: precioParseado
                     })
                 // console.log(response);
                 alertaProductoEditado();
@@ -113,7 +114,7 @@ export const EditProductForm = () => {
 
                                 <input
                                     className="p-2 mt-8 rounded-xl border w-full mx-1 shadow-lg"
-                                    type="number"
+                                    type="text"
                                     name="price"
                                     placeholder="precio"
                                     value={precio}

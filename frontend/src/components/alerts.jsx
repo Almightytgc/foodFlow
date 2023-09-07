@@ -104,6 +104,18 @@ export const alertaPasswordsNoCoinciden = () => {
     })
 }
 
+
+export const alertaCaracteresMinimos = () => {
+    Swal.fire({
+        icon: 'error',
+        iconColor: 'red',
+        title: 'La contraseña necesita tener 8 caracteres como mínimo',
+        text: 'Por favor intenta de nuevo',
+        confirmButtonColor: '#249643',
+        color: '##211B16'
+    })
+}
+
 export const alertaNombresApellidosInvalidos = () => {
     Swal.fire({
         icon: 'error',

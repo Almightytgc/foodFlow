@@ -70,7 +70,7 @@ export const CreateEmployeesForm = () => {
     }
 
 
-    if (salario < 1) {
+    if (salario < 1 ) {
       camposVacios = true
       return alertaCifraInvalida();
     }

@@ -67,8 +67,8 @@ export const SetTableForm = () => {
         <section className="body-font">
             <div className="container mx-auto flex flex-wrap items-center px-16">
                 <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
-                    <h1 className="title-font font-medium text-6xl text-white">¿Qué vas a ordenar el día de hoy?</h1>
-                    <p className="leading-relaxed my-8 text-white text-2xl">Ingresa el token / identificador de la mesa en que te encuentras</p>
+                    <h1 className="title-font font-medium text-5xl text-white">¿Qué vas a ordenar el día de hoy?</h1>
+                    <p className="leading-relaxed my-8 text-white text-2xl">Ingresa el token / identificador de la mesa en que te encuentras (Ejemplo: m01, m06, m14, m19)</p>
                 </div>
 
                 {/* formulario */}

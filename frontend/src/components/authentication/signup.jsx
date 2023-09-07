@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 //imágenes
 import signupImg from "../../assets/general/signupImg.jpg"
 
-import { alertaNoCoincide, alertaCamposVacios, alertaTelefonoInvalido, alertaNombresApellidosInvalidos, alertaCamposVaciosEspacios, alertaRegistroExitoso } from '../alerts';
+import { alertaNoCoincide, alertaCamposVacios, alertaTelefonoInvalido, alertaNombresApellidosInvalidos, alertaCamposVaciosEspacios, alertaRegistroExitoso, alertaPasswordsNoCoinciden, alertaCaracteresMinimos } from '../alerts';
 
 
 
@@ -56,8 +56,12 @@ export const SignUpForm = () => {
 
     } else if (passWord != confirmPassword) {
       contraseniaDistinta = true;
-      return alertaNoCoincide();
+      return alertaPasswordsNoCoinciden();
 
+    } else if (passWord.length < 8 && confirmPassword.length < 8) {
+
+      return alertaCaracteresMinimos();
+      
     } else if (!validarTelefono(phone)) {
       return alertaTelefonoInvalido();
 
