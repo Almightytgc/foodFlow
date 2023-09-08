@@ -290,9 +290,9 @@ export const alertaErrorCarritoVacio = () => {
 //pedido enviado
 export const alertaPedidoEnviado = () => {
     Swal.fire({
-        icon: "success",
-        iconColor: "green",
-        text: "El pedido ha sido enviado exitosamente",
+        // icon: "success",
+        // iconColor: "green",
+        title: "El pedido ha sido enviado exitosamente",
         confirmButtonColor: "#F47228"
     });
 }

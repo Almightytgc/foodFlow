@@ -46,6 +46,7 @@ const MenuOptions = () => {
   const carritoPDFClick = () => {
     setTotal(calculateTotal());
     setCartPDF([...cart]); // Crear una copia del carrito
+    if (!cart.length) return alertaErrorCarritoVacio(); 
   };
 
   useEffect(() => {

@@ -45,6 +45,7 @@ export const AddCommentForm = () => {
         //parseo del id del usuario
         const id_parseado = parseInt(id_usuario);
         let mensajeVacio = false;
+        let espacios = false;
 
         if (mensaje.trim().length === 0) {
             espacios = true;

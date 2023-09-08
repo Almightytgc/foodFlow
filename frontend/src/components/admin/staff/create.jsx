@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 //alerta / notificaciones
 import Swal from 'sweetalert2';
-import { alertaAutenticacion, alertaCamposVaciosEspacios, alertaCifraInvalida, alertaNombresApellidosInvalidos, alertaTelefonoInvalido } from '../../alerts';
+import { alertaAutenticacion, alertaCamposVaciosEspacios, alertaCifraInvalida, alertaNombresApellidosInvalidos, alertaTelefonoInvalido, alertaCaracteresMinimos } from '../../alerts';
 
 export const CreateEmployeesForm = () => {
 
@@ -70,7 +70,10 @@ export const CreateEmployeesForm = () => {
     }
 
 
-    if (salario < 1 ) {
+    if (passWord.length < 8 ) {
+      return alertaCaracteresMinimos();
+    }
+    else if (salario < 1 ) {
       camposVacios = true
       return alertaCifraInvalida();
     }
